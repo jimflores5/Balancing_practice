@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form action="/submit" method="POST">
+        {% for id, data in reactions.items() %}
+            <div class="reaction-row">
+                <span>{{ id }}. </span>
+
+                {# Split into Left (Reactants) and Right (Products) #}
+                {% set sides = data[0].split('->') %}
+                {% set reactants = sides[0].split(',') %}
+                {% set products = sides[1].split(',') %}
+
+                {# Loop through Reactants #}
+                {% for formula in reactants %}
+                    <input type="number" name="c{{id}}_r{{loop.index}}" class="coeff-input" required>
+                    <span>{{ formula|subscript|safe }}</span>
+                    {% if not loop.last %} + {% endif %}
+                {% endfor %}
+
+                <span> &rarr; </span>
+
+                {# Loop through Products #}
+                {% for formula in products %}
+                    <input type="number" name="c{{id}}_p{{loop.index}}" class="coeff-input" required>
+                    <span>{{ formula|subscript|safe }}</span>
+                    {% if not loop.last %} + {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Check Answers</button>
+    </form>
+
+</body>
+</html>

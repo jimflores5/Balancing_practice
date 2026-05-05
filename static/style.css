@@ -1,0 +1,33 @@
+.reaction-row {
+    margin-bottom: 15px;
+    font-family: 'Courier New', Courier, monospace; /* Monospace keeps symbols aligned */
+    font-size: 1.2rem;
+}
+
+.coeff-input {
+    width: 35px;
+    border: none;
+    border-bottom: 2px solid #333;
+    text-align: center;
+    font-size: 1.1rem;
+    outline: none;
+    background-color: transparent;
+}
+
+/* Removes the "spinners" (up/down arrows) for a cleaner look */
+.coeff-input::-webkit-inner-spin-button,
+.coeff-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.coeff-input:focus {
+    border-bottom: 2px solid #007bff;
+    background-color: #f0f8ff;
+}
+
+sub {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 0;
+}
