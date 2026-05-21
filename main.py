@@ -7,7 +7,7 @@ from import_rxns import reactions
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.secret_key = 'K>~EEAnH_x,Z{q.43;NmyQiNz1^Yr7'
+app.secret_key = 'H&7v$K2#mP!9Lz@5qR*4jX^8sB(1nW%6'
 
 @app.template_filter('subscript')
 def subscript(value):

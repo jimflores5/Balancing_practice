@@ -9,6 +9,9 @@ def import_names(filename):
     return lines
 
 reaction_data = import_names('reactions.txt')
+# Create an empty dictionary to hold the reactions to balance.
+# Each reaction falls into 1 of 5 types.
+# For now, we will ignore overlaps between combustion and synthesis.
 reactions = {
     'synthesis': {},
     'decomposition':{},
@@ -17,11 +20,15 @@ reactions = {
     'combustion':{}
 }
 for entry in reaction_data:
+    # Check if entry is a header for a reaction type.
     if '*' in entry:
         rxn_type = entry[2:].lower()
     else:
+        # Split the entry into 3 pieces - index, reaction, answer.
         temp = entry.split(';')
+        # Convert the string answer into a tuple.
         temp[-1] = ast.literal_eval(temp[-1])
+        # Add the reaction to the appropriate dictionary.
         reactions[rxn_type][int(temp[0])] = temp[1:]
 
 # for rxn_set in reactions:
