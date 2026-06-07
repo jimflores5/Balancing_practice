@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balancing Practice</title>
+</head>
+<body>
+    <form action="/rxns" method="POST">
+        <h2><u>Select a reaction type to balance:</u></h2>
+        {% for entry in reactions %}
+            <p><input  type="radio" name="rxn_type" value={{entry}}>{{entry.replace('_',' ').title()}}</p>
+        {% endfor %}
+        <button type="submit">Practice!</button>
+    </form>
+   
+</body>
+</html>

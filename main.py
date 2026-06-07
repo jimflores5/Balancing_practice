@@ -39,20 +39,25 @@ def submit():
         print(user_values, correct_values)
     return "Rutabagas!"
 
+@app.route('/rxns', methods = ['GET', 'POST'])
+def rxns():
+    if request.method == 'POST':
+        rxn_type = request.form['rxn_type']
+        keys = random.sample(range(1, len(reactions[rxn_type])+1), 3)
+        chosen_rxns = {}
+        for index in range(len(keys)):
+            chosen_rxns[index+1] = reactions[rxn_type][index+1]
+        session['questions'] = chosen_rxns
+
+        return render_template('rxns.html', title = 'Balancing Practice', reactions = chosen_rxns)
+
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
         pass
-
     else:
-        keys = random.sample(range(1, len(reactions)+1), 3)
-        chosen_rxns = {}
-        for index in range(len(keys)):
-            chosen_rxns[index+1] = reactions[keys[index]]
-
-        session['questions'] = chosen_rxns
-
-    return render_template('rxns.html', reactions = chosen_rxns, title = 'Balancing Practice')
+        rxn_types = list(reactions.keys())
+    return render_template('index.html', reactions = rxn_types, title = 'Balancing Practice')
 
 if __name__ == '__main__':
     app.run()
