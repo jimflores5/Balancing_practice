@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balancing Practice</title>
-</head>
-<body>
-    <form action="/rxns" method="POST">
-        <h2><u>Select a reaction type to balance:</u></h2>
-        {% for entry in reactions %}
-            <p><input  type="radio" name="rxn_type" value={{entry}}>{{entry.replace('_',' ').title()}}</p>
-        {% endfor %}
-        <button type="submit">Practice!</button>
-    </form>
-   
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="container wrapper text-center">
+        <h1 class='main-heading'>Balancing Chemical Equations</h1>
+        <section class="row">
+            <section class="col">
+                <div class = 'wrapper text-center'>
+                    <h1 class="subheading"><u>Learn</u></h1>
+                    <div class="btn-group-vertical">
+                        <a href="balancing_rxns/1" class="btn btn-success button-margin responsive-btn index-button" role="button">How To Balance Chemical Equations</a>
+                        <a href="rxn_types/1" class="btn btn-success button-margin responsive-btn index-button" role="button">Types of Reactions</a>
+                        <a href="predict_prods/1" class="btn btn-success button-margin responsive-btn" role="button">Predicting Products</a>
+                    </div>
+                </div>
+            </section>
+            <section class = 'col'>
+                <div class='wrapper text-center'>
+                    <h1 class="subheading"><u>Practice</u></h1>
+                    <div class="btn-group-vertical">
+                        <a href="balancing_practice/1" class="btn btn-primary button-margin responsive-btn index-button" role="button">Balance Chemical Equations, Level 1</a>
+                        <a href="balancing_practice/2" class="btn btn-primary button-margin responsive-btn index-button" role="button">Balance Chemical Equations, Level 2</a>
+                        <a href="types_practice" class="btn btn-primary button-margin responsive-btn" role="button">Identify Reaction Types</a>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+{% endblock %} 

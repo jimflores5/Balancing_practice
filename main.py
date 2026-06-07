@@ -59,5 +59,85 @@ def index():
         rxn_types = list(reactions.keys())
     return render_template('index.html', reactions = rxn_types, title = 'Balancing Practice')
 
+@app.route('/rxn_types/<page>', methods=['POST', 'GET'])
+def rxn_types(page):
+    page_title = 'Types of Reactions'
+    num_pages = 7
+    template_name = 'rxn_types'
+    page = int(page)
+    if request.method == 'POST':
+        pass
+
+    return render_template('rxn_types.html',title='Types of Reactions', page = page, page_title = page_title, 
+            num_pages = num_pages, template = template_name)
+
+@app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
+def balancing_rxns(page):
+    page_title = 'Balancing Chemical Equations'
+    num_pages = 3
+    template_name = 'balancing_rxns'
+    page = int(page)
+    if request.method == 'POST':
+        pass
+
+    if page == 1:
+        subheading = 'Conservation of Mass'
+    elif page == 2:
+        subheading = 'Steps to balance a reaction.'
+    else:
+        subheading = 'First Practice!'
+    return render_template('balancing_rxns.html',title='How to Balance a Reaction', page = page, page_title = page_title, 
+            num_pages = num_pages, template = template_name, subheading = subheading)
+
+@app.route('/predict_prods/<page>', methods=['POST', 'GET'])
+def predict_prods(page):
+    page_title = 'Predicting Products'
+    num_pages = 3
+    template_name = 'predict_prods'
+    page = int(page)
+    if request.method == 'POST':
+        pass
+
+    if page == 1:
+        subheading = 'Sometimes, not all of the chemical formulas will be given.'
+    elif page == 2:
+        subheading = 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.'
+    else:
+        subheading = 'Predicting products for combustion reactions.'
+    return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
+            num_pages = num_pages, template = template_name, subheading = subheading)
+
+@app.route('/balancing_practice/<page>', methods=['POST', 'GET'])
+def balancing_practice(page):
+    page_title = 'Balancing Practice'
+    num_pages = 2
+    template_name = 'balancing_practice'
+    page = int(page)
+    if request.method == 'POST':
+        pass
+    else:
+        session['first_try'] = True
+        session['num_attempted'] = 0
+        session['numCorrect'] = 0
+        if page == 1:
+            subheading = 'Balancing Equations, Level 1'
+        else:
+            subheading = 'Balancing Equations, Level 2'
+    return render_template('balancing_practice.html',title='Balancing Practice', page = page, page_title = page_title, 
+            num_pages = num_pages, template = template_name, subheading = subheading)
+
+@app.route('/types_practice', methods=['POST', 'GET'])
+def types_practice():
+    page_title = 'Identify Reaction Types'
+    template_name = 'types_practice'
+    if request.method == 'POST':
+        pass
+    else:
+        session['first_try'] = True
+        session['num_attempted'] = 0
+        session['numCorrect'] = 0
+
+    return render_template('types_practice.html',title='Identify Reaction Types', page_title = page_title, template = template_name)
+
 if __name__ == '__main__':
     app.run()
