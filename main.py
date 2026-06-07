@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect # type: ignore
 import random
 import re
 
-from flask.sessions import NullSession
+from flask.sessions import NullSession # type: ignore
 from import_rxns import reactions
 
 app = Flask(__name__)
