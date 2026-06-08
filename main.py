@@ -136,8 +136,17 @@ def types_practice():
         session['first_try'] = True
         session['num_attempted'] = 0
         session['numCorrect'] = 0
+        rxn_types = list(reactions.keys())
+        questions = {}
+        while len(questions) < 3:
+            type_choice = random.choice(rxn_types)
+            rxn_number = random.choice(range(1,len(reactions[type_choice])))
+            rxn = reactions[type_choice][rxn_number]
+            if rxn[0] not in questions:
+                questions[rxn[0]] = [len(questions)+1, type_choice]
 
-    return render_template('types_practice.html',title='Identify Reaction Types', page_title = page_title, template = template_name)
+    return render_template('types_practice.html',title='Identify Reaction Types', page_title = page_title, template = template_name,
+        rxn_types = rxn_types, questions = questions)
 
 if __name__ == '__main__':
     app.run()
