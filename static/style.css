@@ -92,8 +92,8 @@ sub {
 }
 
 .quiz-table {
-    font-size: 1.4vw; 
-    width: 90%; 
+    font-size: 1.3vw; 
+    width: 100%; 
     margin:0px auto;
 }
 
@@ -118,9 +118,9 @@ sub {
     width: 95%;
 }
 
-.reveal-button {
+.dynamic-button {
     width: fit-content;
-    font-size: 1.1vw;
+    font-size: 1.0vw;
 }
 
 .intro-vid {

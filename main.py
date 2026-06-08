@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect # type: ignore
 import random
 import re
+from markupsafe import Markup
 
 from flask.sessions import NullSession # type: ignore
 from import_rxns import reactions
@@ -10,9 +11,16 @@ app.config['DEBUG'] = True
 app.secret_key = 'H&7v$K2#mP!9Lz@5qR*4jX^8sB(1nW%6'
 
 @app.template_filter('subscript')
-def subscript(value):
+def subscript(raw_rxn):
+    # Add whitespace, blanks and '+' symbols to unbalanced reaction.
+    raw_rxn = raw_rxn.replace(',', ' + __').replace('->', ' -> __')
+
+    # Add blanks in front of first chemical formula.
+    raw_rxn = '__' + raw_rxn
+
     # This regex finds digits and wraps them in <sub> tags
-    return re.sub(r'(\d+)', r'<sub>\1</sub>', value)
+    final_rxn = re.sub(r'(\d+)', r'<sub>\1</sub>', raw_rxn)
+    return final_rxn
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -130,20 +138,28 @@ def balancing_practice(page):
 def types_practice():
     page_title = 'Identify Reaction Types'
     template_name = 'types_practice'
+    rxn_types = list(reactions.keys())
+    answers = []
     if request.method == 'POST':
-        pass
+        questions = session['questions']
+        print(questions)
+        for index in range(len(questions)):
+            answers.append(request.form['answer_'+str(index+1)])  #Pull user answers into a list.
+        print(answers)
     else:
         session['first_try'] = True
         session['num_attempted'] = 0
         session['numCorrect'] = 0
-        rxn_types = list(reactions.keys())
-        questions = {}
-        while len(questions) < 3:
+        questions = []
+        choices = []
+        while len(questions) < 5:
             type_choice = random.choice(rxn_types)
             rxn_number = random.choice(range(1,len(reactions[type_choice])))
             rxn = reactions[type_choice][rxn_number]
-            if rxn[0] not in questions:
-                questions[rxn[0]] = [len(questions)+1, type_choice]
+            if rxn[0] not in choices:
+                choices.append(rxn[0])
+                questions.append([len(questions)+1, Markup(subscript(rxn[0])), type_choice])
+        session['questions'] = questions
 
     return render_template('types_practice.html',title='Identify Reaction Types', page_title = page_title, template = template_name,
         rxn_types = rxn_types, questions = questions)
