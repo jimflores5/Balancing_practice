@@ -3,6 +3,31 @@
 {% block content %}
     <section class="wrapper text-center">
         <h2 class="subheading">{{subheading}}</h2>
-        <h3>Nothing here yet!</h3>
+        <section class="container-fluid frame-width">
+            {% if page == 1 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Video Title</h3>
+                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
+                            Video goes here!
+                        </video>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Text Intro</h3>
+                        <p class="frame-text text-center">Mass question here...</p>
+                        <p>
+                            <button class="btn btn-info reveal-button" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                                Reveal Answer
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample3">
+                            <p>Answer text here...</p>
+                        </div>
+                    </section>
+                </section>
+            {% else %}
+                <h3>Nothing here yet!</h3>
+            {% endif %}
+        </section>
     </section>
 {% endblock %}
