@@ -14,14 +14,17 @@ app.secret_key = 'H&7v$K2#mP!9Lz@5qR*4jX^8sB(1nW%6'
 def check_type_answers(prompts, ans):
     num_correct = 0
     for index in range(len(prompts)):
-        if ans[index] == prompts[index][-1]:
+        if is_overlapping_type(prompts[index], ans[index]):
             num_correct += 1
-            flash('Correct!  :-)', 'correct')
-        elif is_overlapping_type(prompts[index], ans[index]):
+            if ans[index] == 'synthesis':
+                flash('Correct!  :-) (Also a combustion reaction.)', 'correct')
+            else:
+                flash('Correct!  :-) (Also a synthesis reaction.)', 'correct')
+        elif ans[index] == prompts[index][-1]:
             num_correct += 1
             flash('Correct!  :-)', 'correct')
         else:
-            flash('Please try again.', 'error')
+            flash('Nope!', 'error')
 
     return num_correct
 
@@ -188,11 +191,13 @@ def types_practice():
         session['first_try'] = True
         questions = []
         choices = []
+        picked = []
         while len(questions) < 5:
             type_choice = random.choice(rxn_types)
             rxn_number = random.choice(range(1,len(reactions[type_choice])))
             rxn = reactions[type_choice][rxn_number]
-            if rxn[0] not in choices:
+            if rxn[0] not in picked:
+                picked.append(rxn[0])
                 choices.append([rxn[0], type_choice])
                 questions.append([len(questions)+1, Markup(render_equation(rxn[0]))])
         session['questions'] = deepcopy(questions)

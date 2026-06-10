@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <section class="container wrapper text-center">
+    <section class="container-fluid wrapper text-center">
         <h1 class="main-heading">{{page_title}}</h1>
-        <h2 class="subheading">Text instructions go here...</h2>
+        <section>
+            <p class="instructions">Select the reaction type for each of the following.</p>
+            <ul class="sub-instructions">
+                <li>You do NOT need to balance the equation to identify the reaction type.</li>
+                <li>For reactions that fall into more than one category, choosing any of those options is OK.</li>
+            </ul>
+        </section>
     </section>
     <section class="container-fluid wrapper text-left">
         {% with messages = get_flashed_messages(with_categories=True) %}
@@ -13,7 +19,7 @@
                         <tr style="text-align: center;">
                             <th scope="col" style="width: 2%;">#</th>
                             <th scope="col" style="width: 35%;">Unbalanced Reaction</th>
-                            <th scope="col" style="width: 63%;">Reaction Type(s)</th>
+                            <th scope="col" style="width: 63%;">Reaction Types</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,21 +49,23 @@
                                 </td>
                             </tr>
                         {% endfor %}
+                        <tr>
+                            <th></th>
+                            <td class="text-center">
+                                <a class="btn btn-info dynamic-button" href="/types_practice" role="button">New Reactions</a>
+                            </td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <br>
-                <section class="container wrapper text-center">
-                    <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
-                    <a class="btn btn-info dynamic-button" href="/types_practice" role="button">New Reactions</a>
-                </section>
             </form>
         {% endwith %}
     </section>
-    <section class="ml-3">
-        <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
-    </section>
-    <hr>
     <section class="container wrapper text-center">
-        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>                
+        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
+        <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>             
     </section>
 {% endblock %} 
