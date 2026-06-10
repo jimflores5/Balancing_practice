@@ -19,6 +19,10 @@ reactions = {
     'double_replacement':{},
     'combustion':{}
 }
+
+# Create an empty list to hold all the reactions with no reaction type info.
+all_reactions = []
+
 for entry in reaction_data:
     # Check if entry is a header for a reaction type.
     if '*' in entry:
@@ -30,8 +34,4 @@ for entry in reaction_data:
         temp[-1] = ast.literal_eval(temp[-1])
         # Add the reaction to the appropriate dictionary.
         reactions[rxn_type][int(temp[0])] = temp[1:]
-
-# for rxn_set in reactions:
-#     print('\n',rxn_set)
-#     for key,value in reactions[rxn_set].items():
-#         print('\t',key,value)
+        all_reactions.append(temp[1:])
