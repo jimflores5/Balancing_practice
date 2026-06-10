@@ -150,24 +150,19 @@ def predict_prods(page):
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
             num_pages = num_pages, template = template_name, subheading = subheading)
 
-@app.route('/balancing_practice/<page>', methods=['POST', 'GET'])
-def balancing_practice(page):
+@app.route('/balancing_practice', methods=['POST', 'GET'])
+def balancing_practice():
     page_title = 'Balancing Practice'
-    num_pages = 2
     template_name = 'balancing_practice'
-    page = int(page)
     if request.method == 'POST':
         pass
     else:
         session['first_try'] = True
         session['num_attempted'] = 0
         session['numCorrect'] = 0
-        if page == 1:
-            subheading = 'Balancing Equations, Level 1'
-        else:
-            subheading = 'Balancing Equations, Level 2'
-    return render_template('balancing_practice.html',title='Balancing Practice', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheading = subheading)
+        subheading = 'Balancing Equations, Level 1'
+    return render_template('balancing_practice.html',title='Balancing Practice', page_title = page_title, 
+            template = template_name, subheading = subheading)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():

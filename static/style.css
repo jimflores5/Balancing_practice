@@ -158,3 +158,8 @@ sub {
     text-align: left;
     margin-top: 0px;
 }
+
+.button-box {
+    text-align: center;
+    margin-top: 1%;
+}

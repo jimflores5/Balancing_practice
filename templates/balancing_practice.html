@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <section class="container wrapper text-center">
+    <section class="container-fluid wrapper text-center">
         <h1 class="main-heading">{{page_title}}</h1>
         <h2 class="subheading">{{subheading}}</h2>
-        <h3>Nothing here yet!</h3>
+        <section>
+            <p class="instructions">Instructions go here...</p>
+        </section>
     </section>
-    <section class="ml-3">
-        <a class="btn btn-primary" href="/" role="button">Main Menu</a>
+    <section class="container wrapper text-center">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <h2>Nothing here yet!</h2>
+        {% endwith %}
+    </section>
+    <section class="container-fluid wrapper text-center button-box">
+        <a class="btn btn-info dynamic-button" href="/balancing_practice" role="button">New Reactions</a>
+        <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+        <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
+        <hr>
+        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>         
     </section>
 {% endblock %} 
