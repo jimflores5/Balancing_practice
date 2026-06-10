@@ -20,12 +20,23 @@
                         {% for question in questions %}
                             <tr>
                                 <th scope="row">{{question[0]}}</th>
-                                <td>{{question[1]}}</td>
+                                    <td>
+                                        {{question[1]}}
+                                        {% if messages %}
+                                            {% set item = questions.index(question) %}
+                                            {% set message = messages[item] %}
+                                            <span class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</span>
+                                        {% endif %}
+                                    </td>
                                 <td>
                                     {% for rxn in rxn_types %}
                                         {% set index = "answer_" ~ question[0] ~ "_" ~ loop.index %}
                                         <div class="form-check form-check-inline">
-                                            <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} required>
+                                            {% if answers and answers[question[0]-1] == rxn %}
+                                                <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} checked required>
+                                            {% else %}
+                                                <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} required>
+                                            {% endif %}
                                             <label class="form-check-label" for="{{index}}">{{rxn.replace('_',' ').title()}}</label>
                                         </div>
                                     {% endfor %}
@@ -44,5 +55,9 @@
     </section>
     <section class="ml-3">
         <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
+    </section>
+    <hr>
+    <section class="container wrapper text-center">
+        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>                
     </section>
 {% endblock %} 

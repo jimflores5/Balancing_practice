@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, session, redirect # type: ignore
+from flask import Flask, render_template, request, session, flash # type: ignore
 import random
 import re
-from markupsafe import Markup
+from markupsafe import Markup # type: ignore
+from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
 from import_rxns import reactions
@@ -10,15 +11,43 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.secret_key = 'H&7v$K2#mP!9Lz@5qR*4jX^8sB(1nW%6'
 
+def check_type_answers(prompts, ans):
+    num_correct = 0
+    for index in range(len(prompts)):
+        if ans[index] == prompts[index][-1]:
+            num_correct += 1
+            flash('Correct!  :-)', 'correct')
+        elif is_overlapping_type(prompts[index], ans[index]):
+            num_correct += 1
+            flash('Correct!  :-)', 'correct')
+        else:
+            flash('Please try again.', 'error')
+
+    return num_correct
+
+def is_overlapping_type(reaction, answ):
+    if reaction[-1] != 'synthesis' and reaction[-1] != 'combustion':
+        return False
+    # Split reaction into reactants and products sections.
+    rxn_split = reaction[0].split('->')
+    # Split products into separate compounds.
+    prod_split = rxn_split[1].split(',')
+    # Synthesis reactions have only one product. Combustion reactions have O2 as a reactant.
+    if ',O2' in rxn_split[0] and len(prod_split) == 1 and (answ == 'synthesis' or answ == 'combustion'):
+        return True
+    # The equations in reactions.txt have been chosen to avoid other overlaps.
+    # Redox reactions and acid/base reactions are not assessed by this app.
+    return False
+
 @app.template_filter('subscript')
-def subscript(raw_rxn):
-    # Add whitespace, blanks and '+' symbols to unbalanced reaction.
+def render_equation(raw_rxn):
+    # Add whitespace, blanks and '+' symbols to the unbalanced reaction.
     raw_rxn = raw_rxn.replace(',', ' + __').replace('->', ' -> __')
 
-    # Add blanks in front of first chemical formula.
+    # Add blank in front of first chemical formula.
     raw_rxn = '__' + raw_rxn
 
-    # This regex finds digits and wraps them in <sub> tags
+    # Use regex to find digits and wrap them in <sub> tags.
     final_rxn = re.sub(r'(\d+)', r'<sub>\1</sub>', raw_rxn)
     return final_rxn
 
@@ -64,7 +93,10 @@ def index():
     if request.method == 'POST':
         pass
     else:
+        session.clear()
         rxn_types = list(reactions.keys())
+        session['num_attempted'] = 0
+        session['numCorrect'] = 0
     return render_template('index.html', reactions = rxn_types, title = 'Balancing Practice')
 
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
@@ -142,14 +174,18 @@ def types_practice():
     answers = []
     if request.method == 'POST':
         questions = session['questions']
-        print(questions)
         for index in range(len(questions)):
             answers.append(request.form['answer_'+str(index+1)])  #Pull user answers into a list.
-        print(answers)
+        num_correct = check_type_answers(session['check_these'], answers)
+        if session['first_try']:
+            session['first_try'] = False
+            session['numCorrect'] += num_correct
+            session['first_score'] = session['numCorrect']
+        # elif num_correct > session['first_score']:
+        #     correction = (num_correct - session['first_score'])/2
+        #     session['numCorrect'] = session['first_score'] + correction
     else:
         session['first_try'] = True
-        session['num_attempted'] = 0
-        session['numCorrect'] = 0
         questions = []
         choices = []
         while len(questions) < 5:
@@ -157,12 +193,15 @@ def types_practice():
             rxn_number = random.choice(range(1,len(reactions[type_choice])))
             rxn = reactions[type_choice][rxn_number]
             if rxn[0] not in choices:
-                choices.append(rxn[0])
-                questions.append([len(questions)+1, Markup(subscript(rxn[0])), type_choice])
-        session['questions'] = questions
+                choices.append([rxn[0], type_choice])
+                questions.append([len(questions)+1, Markup(render_equation(rxn[0]))])
+        session['questions'] = deepcopy(questions)
+        session['check_these'] = deepcopy(choices)
+        session['num_attempted'] += len(questions)
 
+    percentage = round(session['numCorrect']/session['num_attempted']*100,1)
     return render_template('types_practice.html',title='Identify Reaction Types', page_title = page_title, template = template_name,
-        rxn_types = rxn_types, questions = questions)
+        rxn_types = rxn_types, questions = questions, percentage = percentage, answers = answers)
 
 if __name__ == '__main__':
     app.run()
