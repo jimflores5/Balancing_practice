@@ -211,9 +211,8 @@ def balancing_practice():
 
 @app.route('/balancing_practice_2', methods=['POST', 'GET'])
 def balancing_practice_2():
-    page_title = 'Balancing Practice'
-    template_name = 'balancing_practice'
-    subheading = 'Balancing Equations, Level 2'
+    page_title = 'Balancing Practice, Level 2'
+    template_name = 'balancing_practice_2'
     answers = []
     if request.method == 'POST':
         pass
@@ -222,7 +221,7 @@ def balancing_practice_2():
         questions = []
     
     return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
-            template = template_name, subheading = subheading, questions = questions, answers = answers)
+            template = template_name, questions = questions, answers = answers)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():
