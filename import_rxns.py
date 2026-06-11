@@ -26,7 +26,9 @@ types_of_rxns_text = {
     'decomposition':[],
     'single_replacement':[],
     'double_replacement':[],
-    'combustion':[]
+    'combustion':[],
+    'practice_identifying_types':[],
+    'other_reaction_types':[]
 }
 
 # Create an empty list to hold all the reactions with no reaction type info.

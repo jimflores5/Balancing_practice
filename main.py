@@ -125,19 +125,35 @@ def rxn_types(page):
     template = 'rxn_types'
     num_pages = 7
     page = int(page)
+    page_content = list(types_of_rxns_text.keys())
     rxn_types = list(reactions.keys())
+    answers = []
+    subheading = page_content[page-1].replace('_',' ').title()
+    bullet_points = types_of_rxns_text[page_content[page-1]]
     if request.method == 'POST':
-        pass
+        questions = session['questions']
+        for index in range(len(questions)):
+            answers.append(request.form['answer_'+str(index+1)])  #Pull user answers into a list.
+        check_type_answers(session['check_these'], answers)
     else:
-        if page <= 5:
-            subheading = rxn_types[page-1].replace('_',' ').title()
-            bullet_points = types_of_rxns_text[rxn_types[page-1]]
-        else:
-            subheading = 'TBD'
-            bullet_points = []
+        questions = []
+        choices = []
+        picked = []
+        if page == 6:
+            while len(questions) < 2:
+                type_choice = random.choice(rxn_types)
+                rxn_number = random.choice(range(1,len(reactions[type_choice])))
+                rxn = reactions[type_choice][rxn_number]
+                if rxn[0] not in picked:
+                    picked.append(rxn[0])
+                    choices.append([rxn[0], type_choice])
+                    questions.append([len(questions)+1, Markup(render_equation(rxn[0]))])
+            session['questions'] = deepcopy(questions)
+            session['check_these'] = deepcopy(choices)
 
     return render_template('rxn_types.html',title='Types of Reactions', page = page, page_title = page_title, 
-            num_pages = num_pages, subheading = subheading, template = template, bullet_points = bullet_points)
+            num_pages = num_pages, subheading = subheading, template = template, bullet_points = bullet_points,
+            questions = questions, answers = answers, rxn_types = rxn_types)
 
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):
