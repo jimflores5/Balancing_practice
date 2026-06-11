@@ -50,6 +50,7 @@ def check_bce_answers(coeffs, ans):
         elif not proper_coeffs(ans[index]):
             flash('Coefficients must be positive, whole numbers.', 'error')
         elif are_multiples(coeffs[index], ans[index]):
+            bce_correct += 0.5
             flash(f'Correct balancing, but reduce your coefficients to {coeffs[index]}.', 'error')
         else:
             wrong_coeffs = id_mistakes(coeffs[index], ans[index])
@@ -183,11 +184,10 @@ def balancing_practice():
                 row_answers.append(int(answer))
             answers.append(tuple(row_answers))
         num_correct = check_bce_answers(session['check_these'], answers)
-        print(f"Number correct = {num_correct}.")
-        # if session['first_try']:
-        #     session['first_try'] = False
-        #     session['numCorrect'] += num_correct
-        #     session['first_score'] = session['numCorrect']
+        if session['first_try']:
+            session['first_try'] = False
+            session['numCorrect'] += num_correct
+            session['first_score'] = session['numCorrect']
     else:
         session['first_try'] = True
         questions = []
@@ -202,8 +202,24 @@ def balancing_practice():
         session['questions'] = deepcopy(questions)
         session['check_these'] = deepcopy(coefficients)
         session['num_attempted'] += len(questions)
-            
+    
+    percentage = round(session['numCorrect']/session['num_attempted']*100,1)
     return render_template('balancing_practice.html',title='Balancing Practice', page_title = page_title, 
+            template = template_name, subheading = subheading, questions = questions, answers = answers, percentage = percentage)
+
+@app.route('/balancing_practice_2', methods=['POST', 'GET'])
+def balancing_practice_2():
+    page_title = 'Balancing Practice'
+    template_name = 'balancing_practice'
+    subheading = 'Balancing Equations, Level 2'
+    answers = []
+    if request.method == 'POST':
+        pass
+    else:
+        session['first_try'] = True
+        questions = []
+    
+    return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
             template = template_name, subheading = subheading, questions = questions, answers = answers)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
