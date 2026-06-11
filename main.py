@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request, session, flash # type: ignore
-import random
-import re
+import random, re
 from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions
+from import_rxns import reactions, all_reactions
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -42,6 +41,50 @@ def is_overlapping_type(reaction, answ):
     # Redox reactions and acid/base reactions are not assessed by this app.
     return False
 
+def check_bce_answers(coeffs, ans):
+    bce_correct = 0
+    for index in range(len(coeffs)):
+        if coeffs[index] == ans[index]:
+            bce_correct += 1
+            flash('Correct!  :-)', 'correct')
+        elif not proper_coeffs(ans[index]):
+            flash('Coefficients must be positive, whole numbers.', 'error')
+        elif are_multiples(coeffs[index], ans[index]):
+            bce_correct += 0.5
+            flash(f'The equation is balanced, but reduce your coefficients to {coeffs[index]}.', 'error')
+        else:
+            wrong_coeffs = id_mistakes(coeffs[index], ans[index])
+            num_incorrect = wrong_coeffs.count('X')
+            if num_incorrect == 1:
+                flash(f'You have {num_incorrect} incorrect coefficient. {wrong_coeffs}', 'error')
+            else:
+                flash(f'You have {num_incorrect} incorrect coefficients. {wrong_coeffs}', 'error')
+    return bce_correct
+
+def proper_coeffs(values):
+    for value in values:
+        if value < 1:
+            return False
+    return True
+
+def are_multiples(coefs, ans):
+    if ans[0] != coefs[0] and ans[0] < coefs[0]:
+        return False
+    multiplier = ans[0]/coefs[0]
+    for index in range(1, len(coefs)):
+        if multiplier != ans[index]/coefs[index]:
+            return False
+    return True
+
+def id_mistakes(corrects, ans):
+    mistakes = []
+    for index in range(len(corrects)):
+        if corrects[index] == ans[index]:
+            mistakes.append(str(ans[index]))
+        else:
+            mistakes.append('X')
+    return ', '.join(mistakes)
+
 @app.template_filter('subscript')
 def render_equation(raw_rxn):
     # Add whitespace, blanks and '+' symbols to the unbalanced reaction.
@@ -53,31 +96,6 @@ def render_equation(raw_rxn):
     # Use regex to find digits and wrap them in <sub> tags.
     final_rxn = re.sub(r'(\d+)', r'<sub>\1</sub>', raw_rxn)
     return final_rxn
-
-@app.route('/submit', methods=['POST'])
-def submit():
-    questions = session.get('questions')
-    results = {}
-    for id, data in questions.items():
-        # Get coefficients for this reaction (e.g., c1_r1, c1_r2, c1_p1)
-        keys = [k for k in request.form if k.startswith(f'c{id}_')]
-
-        # Sort keys: Reactants (r) first, then Products (p), then by index
-        def chem_sort(key):
-            # key format: 'c1_r2' -> side_part is 'r2'
-            side_part = key.split('_')[1] 
-            side = side_part[0]  # 'r' or 'p'
-            index = int(side_part[1:])
-            # Assign priority 0 to 'r' and 1 to 'p' to ensure correct left-to-right order
-            priority = 0 if side == 'r' else 1
-            return (priority, index)
-
-        sorted_keys = sorted(keys, key=chem_sort)
-        
-        user_values = tuple(int(request.form[k]) for k in sorted_keys)
-        correct_values = data[1]
-        print(user_values, correct_values)
-    return "Rutabagas!"
 
 @app.route('/rxns', methods = ['GET', 'POST'])
 def rxns():
@@ -97,10 +115,9 @@ def index():
         pass
     else:
         session.clear()
-        rxn_types = list(reactions.keys())
         session['num_attempted'] = 0
         session['numCorrect'] = 0
-    return render_template('index.html', reactions = rxn_types, title = 'Balancing Practice')
+    return render_template('index.html', title = 'Balancing Practice')
 
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
 def rxn_types(page):
@@ -150,24 +167,62 @@ def predict_prods(page):
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
             num_pages = num_pages, template = template_name, subheading = subheading)
 
-@app.route('/balancing_practice/<page>', methods=['POST', 'GET'])
-def balancing_practice(page):
-    page_title = 'Balancing Practice'
-    num_pages = 2
+@app.route('/balancing_practice', methods=['POST', 'GET'])
+def balancing_practice():
+    page_title = 'Balancing Practice, Level 1'
     template_name = 'balancing_practice'
-    page = int(page)
+    answers = []
+    if request.method == 'POST':
+        questions = session['questions']
+        for index in range(len(questions)):
+            row_answers = []
+            num_inputs = questions[index][1].count('+') + 2
+            for entry in range(num_inputs):
+                answer = request.form['box'+str(index+1)+'_'+str(entry+1)]
+                if answer == '':
+                    answer = '1'
+                elif not answer.isdigit() and '-' not in answer:
+                    answer = '1'
+                row_answers.append(int(answer))
+            answers.append(tuple(row_answers))
+        num_correct = check_bce_answers(session['check_these'], answers)
+        if session['first_try']:
+            session['first_try'] = False
+            session['numCorrect'] += num_correct
+            session['first_score'] = session['numCorrect']
+    else:
+        session['first_try'] = True
+        questions = []
+        coefficients = []
+        picked = []
+        while len(questions) < 3:
+            rxn = random.choice(all_reactions)
+            if rxn[0] not in picked:
+                picked.append(rxn[0])
+                coefficients.append(rxn[1])
+                questions.append([len(questions)+1, Markup(render_equation(rxn[0]))])
+        session['questions'] = deepcopy(questions)
+        session['check_these'] = deepcopy(coefficients)
+        session['num_attempted'] += len(questions)
+    
+    percentage = round(session['numCorrect']/session['num_attempted']*100,1)
+    return render_template('balancing_practice.html',title='Balancing Practice', page_title = page_title, 
+            template = template_name, questions = questions, answers = answers, percentage = percentage)
+
+@app.route('/balancing_practice_2', methods=['POST', 'GET'])
+def balancing_practice_2():
+    page_title = 'Balancing Practice'
+    template_name = 'balancing_practice'
+    subheading = 'Balancing Equations, Level 2'
+    answers = []
     if request.method == 'POST':
         pass
     else:
         session['first_try'] = True
-        session['num_attempted'] = 0
-        session['numCorrect'] = 0
-        if page == 1:
-            subheading = 'Balancing Equations, Level 1'
-        else:
-            subheading = 'Balancing Equations, Level 2'
-    return render_template('balancing_practice.html',title='Balancing Practice', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheading = subheading)
+        questions = []
+    
+    return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
+            template = template_name, subheading = subheading, questions = questions, answers = answers)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():
@@ -184,9 +239,6 @@ def types_practice():
             session['first_try'] = False
             session['numCorrect'] += num_correct
             session['first_score'] = session['numCorrect']
-        # elif num_correct > session['first_score']:
-        #     correction = (num_correct - session['first_score'])/2
-        #     session['numCorrect'] = session['first_score'] + correction
     else:
         session['first_try'] = True
         questions = []

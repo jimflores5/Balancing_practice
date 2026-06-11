@@ -5,13 +5,13 @@
 }
 
 .coeff-input {
-    width: 35px;
+    width: 10%;
     border: none;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid purple;
     text-align: center;
-    font-size: 1.1rem;
-    outline: none;
+    font-size: 1.5vw;
     background-color: transparent;
+    color:purple;
 }
 
 /* Removes the "spinners" (up/down arrows) for a cleaner look */
@@ -19,6 +19,11 @@
 .coeff-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .coeff-input:focus {
@@ -157,4 +162,14 @@ sub {
     color: green;
     text-align: left;
     margin-top: 0px;
+}
+
+.button-box {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.bce-table {
+    font-size: 1.5vw; 
+    margin:0px auto;
 }
