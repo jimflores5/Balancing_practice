@@ -51,11 +51,14 @@ def check_bce_answers(coeffs, ans):
             flash('Coefficients must be positive, whole numbers.', 'error')
         elif are_multiples(coeffs[index], ans[index]):
             bce_correct += 0.5
-            flash(f'Correct balancing, but reduce your coefficients to {coeffs[index]}.', 'error')
+            flash(f'The equation is balanced, but reduce your coefficients to {coeffs[index]}.', 'error')
         else:
             wrong_coeffs = id_mistakes(coeffs[index], ans[index])
             num_incorrect = wrong_coeffs.count('X')
-            flash(f'You have {num_incorrect} incorrect coefficients. {wrong_coeffs}', 'error')
+            if num_incorrect == 1:
+                flash(f'You have {num_incorrect} incorrect coefficient. {wrong_coeffs}', 'error')
+            else:
+                flash(f'You have {num_incorrect} incorrect coefficients. {wrong_coeffs}', 'error')
     return bce_correct
 
 def proper_coeffs(values):
@@ -166,9 +169,8 @@ def predict_prods(page):
 
 @app.route('/balancing_practice', methods=['POST', 'GET'])
 def balancing_practice():
-    page_title = 'Balancing Practice'
+    page_title = 'Balancing Practice, Level 1'
     template_name = 'balancing_practice'
-    subheading = 'Balancing Equations, Level 1'
     answers = []
     if request.method == 'POST':
         questions = session['questions']
@@ -205,7 +207,7 @@ def balancing_practice():
     
     percentage = round(session['numCorrect']/session['num_attempted']*100,1)
     return render_template('balancing_practice.html',title='Balancing Practice', page_title = page_title, 
-            template = template_name, subheading = subheading, questions = questions, answers = answers, percentage = percentage)
+            template = template_name, questions = questions, answers = answers, percentage = percentage)
 
 @app.route('/balancing_practice_2', methods=['POST', 'GET'])
 def balancing_practice_2():

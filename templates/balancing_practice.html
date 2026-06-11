@@ -5,20 +5,25 @@
         <h1 class="main-heading">{{page_title}}</h1>
         <h2 class="subheading">{{subheading}}</h2>
         <section>
-            <p class="instructions">Instructions go here...</p>
+            <p class="instructions">Balance each of the following reactions.</p>
+            <ul class="sub-instructions">
+                <li>Type a coefficient in front of each chemical formula.</li>
+                <li>If a coefficient equals 1, you may fill in that value OR leave the space blank.</li>
+                <li>Use scrap paper to make a chart and/or work out the details!</li>
+            </ul>
         </section>
     </section>
-    <section class="container wrapper text-center">
+    <section class="container-fluid wrapper text-center">
         {% with messages = get_flashed_messages(with_categories=True) %}
             <form action="/balancing_practice" method="POST">
                 <table class="table bce-table">
                     <thead>
                         <tr style="text-align: center;">
-                            <th scope="col" style="width: 2%;">#</th>
-                            <th scope="col" style="width: 35%;"></th>
-                            <th scope="col" style="width: 2%;">Reaction</th>
-                            <th scope="col" style="width: 35%;"></th>
-                            <th scope="col" style="width: 26%;">Feedback</th>
+                            <th scope="col" style="width: 1%;">#</th>
+                            <th scope="col" style="width: 30%;"></th>
+                            <th scope="col" style="width: 1%;">Reaction</th>
+                            <th scope="col" style="width: 30%;"></th>
+                            <th scope="col" style="width: 35%;">Feedback</th>
                         </tr>
                     </thead>
                     <tbody>
