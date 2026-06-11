@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions
+from import_rxns import reactions, all_reactions, types_of_rxns_text
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -122,14 +122,22 @@ def index():
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
 def rxn_types(page):
     page_title = 'Types of Reactions'
+    template = 'rxn_types'
     num_pages = 7
-    template_name = 'rxn_types'
     page = int(page)
+    rxn_types = list(reactions.keys())
     if request.method == 'POST':
         pass
+    else:
+        if page <= 5:
+            subheading = rxn_types[page-1].replace('_',' ').title()
+            bullet_points = types_of_rxns_text[rxn_types[page-1]]
+        else:
+            subheading = 'TBD'
+            bullet_points = []
 
     return render_template('rxn_types.html',title='Types of Reactions', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name)
+            num_pages = num_pages, subheading = subheading, template = template, bullet_points = bullet_points)
 
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):

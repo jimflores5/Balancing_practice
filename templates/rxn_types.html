@@ -2,7 +2,27 @@
 
 {% block content %}
     <section class="wrapper text-center">
-        <!-- <h2 class="subheading">{{subheading}}</h2> -->
-         <h2>Nothing here yet!</h2>
+        <h2 class="subheading">{{subheading}}</h2>
+    </section>
+    <section class="container-fluid row justify-content-center">
+        <section class="col-6 text-center border border-dark">
+            <h3 class="frame-heading">Reaction Characteristics</h3>
+            <ol id="bullet_list" class="frame-text text-left bullets" type="a">
+                {% for item in bullet_points %}
+                    {% if bullet_points.index(item) == 0 %}
+                        <li class>{{item | safe}}</li>
+                    {% else %}
+                        <li class="hidden-item">{{item | safe}}</li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+            <button id="reveal-btn" class="btn btn-success dynamic-button" onclick="revealNextItem()">Next Item</button> 
+        </section>
+        <section class="col-6 text-center border border-dark">
+            <h3 class="frame-heading">Demo of a {{subheading}} Reaction</h3>
+            <video class="border border-dark intro-vid" width="100%" height="auto" controls>
+                Video goes here!
+            </video>
+        </section>
     </section>
 {% endblock %}

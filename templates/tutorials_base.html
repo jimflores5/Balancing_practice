@@ -11,36 +11,59 @@
         <style></style>
     </head>
 
-    <body>
-        <navbar class="btn-toolbar justify-content-between mt-2" role="toolbar">
-            <section class="ml-3">
-                <a class="btn btn-primary" href="/" role="button">Main Menu</a>
-            </section>
-            <section class = 'wrapper text-center'>
-                <h1 class="main-heading">{{page_title}} (page {{page}} of {{num_pages}})</h1>
-            </section>
-            <section class="mr-3" role="group">
-                <div class="btn-group" role="group">
-                    {% if page == 1 %}
-                        <button type="button" class="btn btn-secondary mr-2" disabled>&laquo; Back</button>
-                    {% else %}
-                        <a class="btn btn-secondary mr-2" href="/{{template}}/{{page-1}}" role="button">&laquo; Back</a>
-                    {% endif %}
-                    {% if page == num_pages %}
-                        <button type="button" class="btn btn-secondary mr-2" disabled>Next &raquo;</button>
-                    {% else %}
-                        <a class="btn btn-secondary mr-2" href="/{{template}}/{{page+1}}" role="button">Next &raquo;</a>
-                    {% endif %}
-                </div>
-            </section>
-        </navbar>
-        {% block content %}
-        {% endblock %}
+    <body class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1">
+            <navbar class="btn-toolbar justify-content-between mt-2" role="toolbar">
+                <section class="ml-3">
+                    <a class="btn btn-primary" href="/" role="button">Main Menu</a>
+                </section>
+                <section class = 'wrapper text-center'>
+                    <h1 class="main-heading">{{page_title}} (page {{page}} of {{num_pages}})</h1>
+                </section>
+                <section class="mr-3" role="group">
+                    <div class="btn-group" role="group">
+                        {% if page == 1 %}
+                            <button type="button" class="btn btn-secondary mr-2" disabled>&laquo; Back</button>
+                        {% else %}
+                            <a class="btn btn-secondary mr-2" href="/{{template}}/{{page-1}}" role="button">&laquo; Back</a>
+                        {% endif %}
+                        {% if page == num_pages %}
+                            <button type="button" class="btn btn-secondary mr-2" disabled>Next &raquo;</button>
+                        {% else %}
+                            <a class="btn btn-secondary mr-2" href="/{{template}}/{{page+1}}" role="button">Next &raquo;</a>
+                        {% endif %}
+                    </div>
+                </section>
+            </navbar>
+            {% block content %}
+            {% endblock %}
+        </main>
         <!-- Bootstrap 5.3.8 compiled and minified JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-        <footer class="footer align-self-end">
+        <script>
+            // Track the current item index in memory
+            let visibleCount = 1;
+            
+            // Grab all the list items and the button
+            const listItems = document.querySelectorAll('#bullet_list li');
+            const revealBtn = document.getElementById('reveal-btn');
+    
+            function revealNextItem() {
+                // Check if there are still items left to reveal
+                if (visibleCount < listItems.length) {
+                    listItems[visibleCount].style.display = 'list-item';
+                    visibleCount++;
+                }
+                
+                // Hide the button once the final item is displayed
+                if (visibleCount >= listItems.length) {
+                    revealBtn.style.display = 'none';
+                }
+            }
+        </script>
+        <footer class="footer ms-auto px-3">
             <div class="container wrapper text-center">
                 <span class="text-muted">Created by Jim Flores, 2026</span>
             </div>
