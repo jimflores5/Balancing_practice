@@ -1,9 +1,10 @@
 **Synthesis
-In a <strong><em>syntheis</em></strong> reaction, two or more reactants combine to form a <strong>SINGLE product</strong>.
-For example: 4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub>
-The reactants may be elements, compounds, or a mix of elements and compounds.
-Here's a synthesis reaction involving compounds:<br> CaO + 2CO<sub>2</sub> + H<sub>2</sub>O -> Ca(HCO<sub>3</sub>)<sub>2</sub>
-Synthesis reactions are also called <em>combination</em> reactions.
+In a <strong><em>synthesis</em></strong> reaction, two or more reactants combine to form a <strong>SINGLE product</strong>.
+For example, iron reacts with oxygen to form iron (III) oxide:<br> <strong>4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub></strong><br> Only one compound (Fe<sub>2</sub>O<sub>3</sub>) appears on the product side.
+In a synthesis process, the reactants may be elements, compounds, or a mix of elements and compounds.
+Here's a synthesis reaction where three compounds react:<br> <strong>CaO + 2CO<sub>2</sub> + H<sub>2</sub>O -> Ca(HCO<sub>3</sub>)<sub>2</sub></strong>
+Synthesis reactions are also called <strong><em>combination</em></strong> reactions.
+Play the video to see two examples of a synthesis reaction!
 **Decomposition
 Lorem ipsum...
 More ipsum...

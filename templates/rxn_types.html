@@ -22,7 +22,8 @@
                 <p class="frame-heading">Identify the reaction type for each equation shown on the right.</p>
                 <ul class="sub-instructions bullets">
                     <li>You do NOT need to balance the equation to identify the reaction type!</li>
-                    <li>Click <em>Submit</em> to check the accuracy of your choices.</li>
+                    <li>Click <em>Check Answers</em> to show the accuracy of your choices.</li>
+                    <li>When you make a mistake, pick a different answer and check again.</li>
                     <li>Click <em>New Reactions</em> to refresh the equations.</li>
                 </ul>
             {% endif %}
@@ -37,48 +38,37 @@
                 <h3 class="frame-heading">Practice!</h3>
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     <form action="/rxn_types/{{page}}" method="POST">
-                        <table class="table align-middle quiz-table">
-                            <tbody>
-                                {% for question in questions %}
-                                    <tr style="text-align: center;">
-                                        <td scope="col" style="width: 70%;">
-                                            {{question[1]}}
-                                        </td>
-                                        <td scope="col" style="width: 30%;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td {% if questions.index(question)%2 != 0 %}style="color:purple"{% endif %}>
-                                            {% for rxn in rxn_types %}
-                                                {% set index = "answer_" ~ question[0] ~ "_" ~ loop.index %}
-                                                <div class="form-check">
-                                                    {% if answers and answers[question[0]-1] == rxn %}
-                                                        <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} checked required>
-                                                    {% else %}
-                                                        <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} required>
-                                                    {% endif %}
-                                                    <label class="form-check-label" for="{{index}}">{{rxn.replace('_',' ').title()}}</label>
-                                                </div>
-                                            {% endfor %}
-                                        </td>
-                                        <td class="text-center vertical-align:middle">
-                                            {% if messages %}
-                                                {% set item = questions.index(question) %}
-                                                {% set message = messages[item] %}
-                                                <span class='{{message[0]}}' style="font-size: 1.3vw">&emsp;{{message[1]}}</span>
+                        {% for question in questions %}
+                            <section class="bce-table text-center" {% if questions.index(question)%2 != 0 %}style="color:purple"{% endif %}>
+                                {{question[1]}}
+                            </section>
+                            <section class="row quiz-table border-bottom">
+                                <section class="col-5 text-left" {% if questions.index(question)%2 != 0 %}style="color:purple"{% endif %}>
+                                    {% for rxn in rxn_types %}
+                                        {% set index = "answer_" ~ question[0] ~ "_" ~ loop.index %}
+                                        <div class="form-check" style="font-size: 1.2vw;">
+                                            {% if answers and answers[question[0]-1] == rxn %}
+                                                <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} checked required>
+                                            {% else %}
+                                                <input name="answer_{{question[0]}}" class="form-check-input" type="radio" id="{{index}}" value={{rxn}} required>
                                             {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                <tr>
-                                    <td class="text-center">
-                                        <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="btn btn-info dynamic-button" href="/rxn_types/{{page}}" role="button">New Reactions</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            <label class="form-check-label" for="{{index}}">{{rxn.replace('_',' ').title()}}</label>
+                                        </div>
+                                    {% endfor %}
+                                </section>
+                                <section class="col-7 align-self-center">
+                                    {% if messages %}
+                                        {% set item = questions.index(question) %}
+                                        {% set message = messages[item] %}
+                                        <span class='{{message[0]}}' style="font-size: 1.3vw">&emsp;{{message[1]}}</span>
+                                    {% endif %}
+                                </section>
+                            </section>
+                        {% endfor %}
+                        <section class="button-box">
+                            <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                            <a class="btn btn-info dynamic-button" href="/rxn_types/{{page}}" role="button">New Reactions</a>
+                        </section>
                         <br>
                     </form>
                 {% endwith %}
