@@ -1,26 +1,37 @@
 **Synthesis
-In a <strong><em>synthesis</em></strong> reaction, two or more reactants combine to form a <strong>SINGLE product</strong>.
+In a <strong><em>synthesis</em></strong> reaction, two or more substances react to form a <strong>SINGLE product</strong>.
 For example, iron reacts with oxygen to form iron (III) oxide:<br> <strong>4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub></strong><br> Only one compound (Fe<sub>2</sub>O<sub>3</sub>) appears on the product side.
 In a synthesis process, the reactants may be elements, compounds, or a mix of elements and compounds.
 Here's a synthesis reaction where three compounds react:<br> <strong>CaO + 2CO<sub>2</sub> + H<sub>2</sub>O -> Ca(HCO<sub>3</sub>)<sub>2</sub></strong>
 Synthesis reactions are also called <strong><em>combination</em></strong> reactions.
 Play the video to see two examples of a synthesis reaction!
 **Decomposition
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+In a <strong>decomposition</strong> reaction, a <strong>SINGLE reactant</strong> breaks down into two or more simpler substances.
+The <em>simpler substances</em> may be elements OR compounds.
+For example, when heated, glucose (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>) breaks down into carbon and water vapor:<br> <strong>C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> -> 6C + 6H<sub>2</sub>O</strong>
+Decomposition also makes your baked goods light and fluffy! When heated, baking soda (sodium bicarbonate) breaks down to produce sodium carbonate, water vapor, and carbon dioxide gas.<br> <strong>2NaHCO<sub>3</sub> -> Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>O<sub>(g)</sub> + CO<sub>2(g)</sub></strong>
+The CO<sub>2(g)</sub> creates helpful bubbles inside your dough!
 **Single_replacement
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+In a <strong>single replacement</strong> reaction, atoms of one element replace atoms of another inside a compound.
+Metals replace other metals. Nonmetals replace other nonmetals.
+For example: <strong>2Al + 3CuCl<sub>2</sub> -> 2AlCl<sub>3</sub> + 3Cu</strong> <br>The Al atoms (metal) replace the Cu atoms (also a metal) in CuCl<sub>2</sub>.
+In <strong>2KBr + Cl<sub>2</sub> -> 2KCl + Br<sub>2</sub></strong>, the (nonmetal) Cl atoms replace the (nonmetal) Br atoms in KBr.
+When listed first in a compound, hydrogen (H) is treated like a metal.<br> <strong>Mg + 2HCl -> MgCl<sub>2</sub> + H<sub>2</sub></strong> &emsp; <strong>Ca + 2H<sub>2</sub>O -> Ca(OH)<sub>2</sub> + H<sub>2</sub></strong>
+<u>Pro Tip</u>: Single replacement reactions always show an <strong><em>element and a compound</em></strong> on BOTH sides of the equation.
+Need help identifying metals vs. nonmetals? Pull out your periodic table and Google that question!
 **Double_replacement
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+In a <strong>double replacement</strong> reaction, two compounds exchange cations.
+For example: <strong>TBD</strong><br> Note cation exchange...
+Need to review <em>cations vs. anions</em>? Pull out your periodic table and Google that question!
+In a double replacement reaction, one product will be a <strong>precipitate</strong> OR water.
+A <em>precipitate</em> is a solid that forms when two solutions (aq) are mixed.
+Here's an example of a double replacement reaction that forms water: <br><strong>TBD</strong>
 **Combustion
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+In a <strong>combustion</strong> reaction, a substance <strong>burns in oxygen (O<sub>2</sub>)</strong>.
+Each product of a combustion reaction contains the substance's original elements plus oxygen.
+For example:<br> <strong>TBD</strong><br>Note O2 on reactant side plus O in each product.
+When a compound contains carbon (C) and hydrogen (H), the combustion products will include CO<sub>2(g)</sub> and H<sub>2</sub>O<sub>(g)</sub>.
+For example:<br> <strong>Combustion of CH4...</strong><br> <strong>Combustion of C2H5OH...</strong>
 **Practice_identifying_types
 **Other_reaction_types
 Lorem ipsum...
