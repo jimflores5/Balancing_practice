@@ -29,11 +29,11 @@ Here's an example of a double replacement reaction that forms water: <br><strong
 **Combustion
 In a <strong>combustion</strong> reaction, a substance <strong>burns in oxygen (O<sub>2</sub>)</strong>.
 Each product of a combustion reaction contains the substance's original elements plus oxygen.
-For example:<br> <strong>TBD</strong><br>Note O2 on reactant side plus O in each product.
+For example: <strong>4NH<sub>3</sub> + 7O<sub>2</sub> -> 4NO<sub>2</sub> + 6H<sub>2</sub>O</strong><br>Oxygen (O<sub>2</sub>) appears as a reactant, and each product contains O atoms in the formula.
 When a compound contains carbon (C) and hydrogen (H), the combustion products will include CO<sub>2(g)</sub> and H<sub>2</sub>O<sub>(g)</sub>.
-For example:<br> <strong>Combustion of CH4...</strong><br> <strong>Combustion of C2H5OH...</strong>
+For example:<br> <strong>CH<sub>4</sub> + 2O<sub>2</sub> -> CO<sub>2</sub> + 2H<sub>2</sub>O</strong><br> <strong>C<sub>2</sub>H<sub>5</sub>OH + 3O<sub>2</sub> -> 2CO<sub>2</sub> + 3H<sub>2</sub>O</strong>
 **Practice_identifying_types
 **Other_reaction_types
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+<strong>Dissociation reactions</strong> occur when an ionic compound dissolves in water and splits into positive ions (cations) and negative ions (anions).
+<strong>Acid/base neutralization reactions</strong> are a specific case of double replacement reactions.
+<strong>Oxidation-reduction reactions</strong> (redox reactions) occur when one atom loses electrons and another atom gains those electrons.
