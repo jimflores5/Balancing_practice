@@ -8,6 +8,9 @@
         <section class="col-6 text-center border border-dark">
             {% if page != 6 %}
                 <h3 class="frame-heading">Reaction Characteristics</h3>
+                {% if page == 7 %}
+                    <p class="frame-text text-left">The following reaction types exist but will not be assessed on this website:</p>
+                {% endif %}
                 <ol id="bullet_list" class="frame-text text-left bullets" type="a">
                     {% for item in bullet_points %}
                         {% if bullet_points.index(item) == 0 %}
@@ -25,6 +28,7 @@
                     <li>Click <em>Check Answers</em> to show the accuracy of your choices.</li>
                     <li>When you make a mistake, pick a different answer and check again.</li>
                     <li>Click <em>New Reactions</em> to refresh the equations.</li>
+                    <li><u>NOTE</u>: Sometimes reactions fall into more than one category! For example, <br> <strong>4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub></strong> is both a synthesis AND a combustion reaction.</li>
                 </ul>
             {% endif %}
         </section>
@@ -60,7 +64,7 @@
                                     {% if messages %}
                                         {% set item = questions.index(question) %}
                                         {% set message = messages[item] %}
-                                        <span class='{{message[0]}}' style="font-size: 1.3vw">&emsp;{{message[1]}}</span>
+                                        <span class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</span>
                                     {% endif %}
                                 </section>
                             </section>
@@ -73,8 +77,10 @@
                     </form>
                 {% endwith %}
             {% else %}
-                <h3 class="frame-heading">Title TBD</h3>
-                <p>Figures for other reaction types...</p>
+                <h3 class="frame-heading">Reactions Not Appearing in This Film</h3>
+                <div class="frame-text">Figure for dissociation reaction...</div>
+                <div class="frame-text">Figure for acid/base reaction...</div>
+                <div class="frame-text">Figure for redox reaction...</div>
             {% endif %}
         </section>
     </section>
