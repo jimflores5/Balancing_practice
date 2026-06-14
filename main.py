@@ -97,18 +97,6 @@ def render_equation(raw_rxn):
     final_rxn = re.sub(r'(\d+)', r'<sub>\1</sub>', raw_rxn)
     return final_rxn
 
-@app.route('/rxns', methods = ['GET', 'POST'])
-def rxns():
-    if request.method == 'POST':
-        rxn_type = request.form['rxn_type']
-        keys = random.sample(range(1, len(reactions[rxn_type])+1), 3)
-        chosen_rxns = {}
-        for index in range(len(keys)):
-            chosen_rxns[index+1] = reactions[rxn_type][index+1]
-        session['questions'] = chosen_rxns
-
-        return render_template('rxns.html', title = 'Balancing Practice', reactions = chosen_rxns)
-
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -134,20 +122,16 @@ def rxn_types(page):
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):
     page_title = 'Balancing Chemical Equations'
-    num_pages = 3
+    num_pages = 4
     template_name = 'balancing_rxns'
     page = int(page)
+    subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
     if request.method == 'POST':
         pass
-
-    if page == 1:
-        subheading = 'Conservation of Mass'
-    elif page == 2:
-        subheading = 'Steps to balance a reaction.'
     else:
-        subheading = 'First Practice!'
+        pass
     return render_template('balancing_rxns.html',title='How to Balance a Reaction', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheading = subheading)
+            num_pages = num_pages, template = template_name, subheadings = subheadings)
 
 @app.route('/predict_prods/<page>', methods=['POST', 'GET'])
 def predict_prods(page):
