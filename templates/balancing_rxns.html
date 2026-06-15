@@ -15,18 +15,112 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Text Intro</h3>
                         <p class="frame-text text-center">Mass question here...</p>
-                        <p>
-                            <button class="btn btn-info reveal-button" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 Reveal Answer
                             </button>
                         </p>
-                        <div class="collapse" id="collapseExample3">
-                            <p>Answer text here...</p>
-                        </div>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <p class="frame-text text-center">Answer text here...</p>
+                            </div>
+                        </div>               
+                    </section>
+                </section>
+            {% elif page == 2 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Video Title</h3>
+                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
+                            Video goes here!
+                        </video>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Text Intro</h3>
+                        <p class="frame-text">Figures showing vocab parts plus coeffs vs. subscripts.</p>
+                    </section>
+                </section>
+            {% elif page == 3 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">How To Balance</h3>
+                        <ol class="bullet-list frame-text">
+                            <li>Step 1</li>
+                            <li class="hidden-item">Step 2</li>
+                            <li class="hidden-item">Step 3</li>
+                            <li class="hidden-item">Step 4</li>
+                            <li class="hidden-item">Step 5</li>
+                        </ol>
+                        <button class="btn btn-success reveal-btn dynamic-button">Next Item</button>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Example</h3>
                     </section>
                 </section>
             {% else %}
-                <h3>Nothing here yet!</h3>
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Balance the equation shown on the right.</h3>
+                        <ul class="sub-instructions">
+                            <li>Type a coefficient in front of each chemical formula.</li>
+                            <li>If a coefficient equals 1, you may fill in that value OR leave the space blank.</li>
+                            <li>Use scrap paper to make a counting chart and/or work out the details!</li>
+                        </ul>
+                    </section>
+                    <section class="col-6 text-center border border-dark bce-table">
+                        <h3 class="frame-heading">Practice</h3>
+                        {% with messages = get_flashed_messages(with_categories=True) %}
+                            <form action="/balancing_rxns/4" method="POST">
+                                <section class="row">
+                                    {# Split reaction into reactant and product sides. #}
+                                    {% set sides = session['rxn_to_balance'][1].split('->') %}
+                                    {% set reactants = sides[0].split('__') %}
+                                    {% set products = sides[1].split('__') %}
+                                    <div class="col" style="text-align: right;">
+                                        {% for formula in reactants[1:] %}
+                                            {% if answers %}
+                                                <input type="number" id="entry{{loop.index}}" name="box{{loop.index}}" class="coeff-input" value="{{answers[0][loop.index-1]}}">
+                                            {% else %}
+                                                <input type="number" id="entry{{loop.index}}" name="box{{loop.index}}" class="coeff-input" placeholder="?">
+                                            {% endif %}
+                                            <label for="entry{{loop.index}}">{{formula}}</label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-1" style="text-align: center;">
+                                        &rarr;
+                                    </div>
+                                    <div class="col" style="text-align: left;">
+                                        {% for formula in products[1:] %}
+                                            {% if answers %}
+                                                <input type="number" id="entry{{loop.index + reactants[1:]|length}}" name="box{{loop.index + reactants[1:]|length}}" class="coeff-input" value="{{answers[0][loop.index + reactants[1:]|length - 1]}}">
+                                            {% else %}
+                                                <input type="number" id="entry{{loop.index + reactants[1:]|length}}" name="box{{loop.index + reactants[1:]|length}}" class="coeff-input" placeholder="?">
+                                            {% endif %}
+                                            <label for="entry{{loop.index + reactants[1:]|length}}">{{formula}}</label>
+                                        {% endfor %}
+                                    </div>
+                                </section>
+                                <hr>
+                                <section class="row">
+                                    <div class="col">
+                                        {% if messages %}
+                                            {% set message = messages[0] %}
+                                            <p class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</p>
+                                        {% else %}
+                                            <p class="note">Click <strong><em>Check Answer</em></strong> to receive feedback on your balancing.</p>
+                                        {% endif %}
+                                    </div>
+                                </section>
+                                <br>
+                                <section class="container-fluid wrapper text-center button-box">
+                                    <a class="btn btn-info dynamic-button" href="/balancing_rxns/4" role="button">New Reaction</a>
+                                    <button type="submit" class="btn btn-success dynamic-button">Check Answer</button>
+                                </section>
+                                <br>
+                            </form>
+                        {% endwith %}
+                    </section>
+                </section>
             {% endif %}
         </section>
     </section>
