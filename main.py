@@ -144,6 +144,15 @@ def balancing_rxns(page):
         print(answers)
         check_bce_answers(session['check_these'], answers)
     else:
+        page_4_text = [
+            "Identify the reactants and products and write their correct formulas.",
+            "Count the number of each element that appears on each side of the equation.<br> If helpful, use a chart to count atoms.",
+            "Begin balancing by adjusting the coefficients for the element that appears in the FEWEST number of formulas.<br> DO NOT CHANGE THE SUBSCRIPTS!!!!",
+            "Continue adjusting the coefficients to balance the remaining elements. Save H and O for last.",
+            "<u>TIP</u>: Treat polyatomic ions as units.",
+            "Once balanced, make sure the coefficients are in the smallest possible ratio of whole numbers.",
+            "ALWAYS CHECK YOUR WORK!!!!!"
+        ]
         if page == 4:
             rxn_to_balance = []
             coefficients = []
@@ -159,7 +168,7 @@ def balancing_rxns(page):
             session['check_these'] = deepcopy(coefficients)
         
     return render_template('balancing_rxns.html',title='How to Balance a Reaction', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheadings = subheadings, answers = answers)
+            num_pages = num_pages, template = template_name, subheadings = subheadings, answers = answers, page_4_text = page_4_text)
 
 @app.route('/predict_prods/<page>', methods=['POST', 'GET'])
 def predict_prods(page):

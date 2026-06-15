@@ -44,17 +44,18 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">How To Balance</h3>
-                        <ol class="bullet-list frame-text">
-                            <li>Step 1</li>
-                            <li class="hidden-item">Step 2</li>
-                            <li class="hidden-item">Step 3</li>
-                            <li class="hidden-item">Step 4</li>
-                            <li class="hidden-item">Step 5</li>
+                        <ol class="bullet_list frame-text">
+                            {% for entry in page_4_text %}
+                                <li class="hidden-item">{{entry | safe}}</li>
+                            {% endfor %}
                         </ol>
                         <button class="btn btn-success reveal-btn dynamic-button">Next Item</button>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Example</h3>
+                        <h3 class="frame-heading">Live Examples</h3>
+                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
+                            Video goes here!
+                        </video>
                     </section>
                 </section>
             {% else %}
