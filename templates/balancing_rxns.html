@@ -7,7 +7,11 @@
             {% if page == 1 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Video Title</h3>
+                        <h3 class="frame-heading">Rearranging Atoms</h3>
+                        <ul class="frame-text text-left bullets">
+                            <li>Matter can be neither created nor destroyed in a normal chemical process.</li>
+                            <li>Atoms are only <em>rearranged</em> during a reaction.</li>
+                        </ul>
                         <video class="border border-dark intro-vid" width="100%" height="auto" controls>
                             Video goes here!
                         </video>
@@ -21,8 +25,8 @@
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample">
-                            <div class="card card-body">
-                                <p class="frame-text text-center">Answer text here...</p>
+                            <div class="frame-text text-center">
+                                <p>Answer text here...</p>
                             </div>
                         </div>               
                     </section>
@@ -44,15 +48,19 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">How To Balance</h3>
-                        <ol class="bullet_list frame-text">
+                        <ol id="bullet_list" class="frame-text text-left bullets">
                             {% for entry in page_4_text %}
-                                <li class="hidden-item">{{entry | safe}}</li>
+                                {% if page_4_text.index(entry) == 0 %}
+                                    <li>{{entry | safe}}</li>
+                                {% else %}
+                                    <li class="hidden-item">{{entry | safe}}</li>
+                                {% endif %}
                             {% endfor %}
                         </ol>
-                        <button class="btn btn-success reveal-btn dynamic-button">Next Item</button>
+                        <button id="reveal-btn" class="btn btn-success dynamic-button" onclick="revealNextItem()">Next Item</button>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Live Examples</h3>
+                        <h3 class="frame-heading">Balancing Walkthrough</h3>
                         <video class="border border-dark intro-vid" width="100%" height="auto" controls>
                             Video goes here!
                         </video>
@@ -62,10 +70,10 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Balance the equation shown on the right.</h3>
-                        <ul class="sub-instructions">
+                        <ul class="sub-instructions bullets">
                             <li>Type a coefficient in front of each chemical formula.</li>
                             <li>If a coefficient equals 1, you may fill in that value OR leave the space blank.</li>
-                            <li>Use scrap paper to make a counting chart and/or work out the details!</li>
+                            <li>Use scrap paper to make a counting chart and work out the details!</li>
                         </ul>
                     </section>
                     <section class="col-6 text-center border border-dark bce-table">

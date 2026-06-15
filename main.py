@@ -128,6 +128,15 @@ def balancing_rxns(page):
     page = int(page)
     subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
     answers = []
+    page_4_text = [
+        "Identify the reactants and products and write their correct formulas.",
+        "Count the number of each element that appears on each side of the equation.<br> If helpful, use a chart to count atoms.",
+        "Begin balancing by adjusting the coefficients for the element that appears in the FEWEST number of formulas.<br> <strong>DO NOT CHANGE THE SUBSCRIPTS!!!!</strong>",
+        "Continue adjusting the coefficients to balance the remaining elements. Save H or O for last.",
+        "<u>TIP</u>: Treat polyatomic ions as units.",
+        "Once balanced, make sure the coefficients are in the smallest ratio of whole numbers.",
+        "<strong>ALWAYS CHECK YOUR WORK!!!!!</strong>"
+    ]
     if request.method == 'POST':
         question = session['rxn_to_balance']
         answers = []
@@ -144,15 +153,6 @@ def balancing_rxns(page):
         print(answers)
         check_bce_answers(session['check_these'], answers)
     else:
-        page_4_text = [
-            "Identify the reactants and products and write their correct formulas.",
-            "Count the number of each element that appears on each side of the equation.<br> If helpful, use a chart to count atoms.",
-            "Begin balancing by adjusting the coefficients for the element that appears in the FEWEST number of formulas.<br> DO NOT CHANGE THE SUBSCRIPTS!!!!",
-            "Continue adjusting the coefficients to balance the remaining elements. Save H and O for last.",
-            "<u>TIP</u>: Treat polyatomic ions as units.",
-            "Once balanced, make sure the coefficients are in the smallest possible ratio of whole numbers.",
-            "ALWAYS CHECK YOUR WORK!!!!!"
-        ]
         if page == 4:
             rxn_to_balance = []
             coefficients = []
