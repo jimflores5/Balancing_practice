@@ -136,8 +136,14 @@ sub {
 }
 
 .intro-vid {
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.vid-controls {
+    width: fit-content;
+    font-size: 1.0vw;
+    margin-bottom: 1%;
 }
 
 .index-button {

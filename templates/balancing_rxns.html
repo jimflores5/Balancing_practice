@@ -17,16 +17,28 @@
                         </video>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Text Intro</h3>
-                        <p class="frame-text text-center">Mass question here...</p>
+                        <h3 class="frame-heading">Conservation Questions</h3>
+                        <ol class="frame-text text-left bullets">
+                            <li>For the reaction 4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub>, 1.65 g of iron reacts to form 2.36 g of Fe<sub>2</sub>O<sub>3</sub>. <strong>What mass of O<sub>2</sub> reacted?</strong></li>
+                            <li>A student dissolves 1.0 g of table salt (NaCl) into 50.0 g of water (H<sub>2</sub>O). <strong>The mass of the mixture after dissolving is ___.</strong>
+                                <ol type="a">
+                                    <li style="color:purple;">More than 51.0 g</li>
+                                    <li style="color:purple;">Less than 51.0 g</li>
+                                    <li style="color:purple;">51.0 g</li>
+                                </ol>
+                            </li>
+                        </ol>
                         <p class="d-inline-flex gap-1">
                             <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                Reveal Answer
+                                Reveal Answers
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample">
-                            <div class="frame-text text-center">
-                                <p>Answer text here...</p>
+                            <div class="frame-text text-left">
+                                <ol class="bullets">
+                                    <li>Mass of reactants = Mass of products, so g Fe + g O<sub>2</sub> = g Fe<sub>2</sub>O<sub>3</sub>.<br>2.36 g Fe<sub>2</sub>O<sub>3</sub> - 1.65 g Fe = <strong>0.71 g O<sub>2</sub></strong></li>
+                                    <li><strong>C!!!!</strong><br> The NaCl did not disappear, nor did the water gain anything other than the added salt.</li>
+                                </ol>
                             </div>
                         </div>               
                     </section>
@@ -61,9 +73,16 @@
                     </section>
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Balancing Walkthrough</h3>
-                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
-                            Video goes here!
-                        </video>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='how_to_balance_vid.mp4')}}" width="100%" height="auto" controls></video>
+                        <div>
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
                     </section>
                 </section>
             {% else %}

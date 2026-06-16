@@ -61,6 +61,14 @@
                 }
             }
         </script>
+        <script>
+            // JavaScript for video playback speed controls.
+            const video = document.getElementById('lesson-video');
+            const speedSelect = document.getElementById('speed-select');
+            speedSelect.addEventListener('change', (event) => {
+                video.playbackRate = parseFloat(event.target.value);
+            });
+          </script>
         <footer class="footer ms-auto px-3">
             <div class="container wrapper text-center">
                 <span class="text-muted">Created by Jim Flores, 2026</span>

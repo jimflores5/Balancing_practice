@@ -130,7 +130,7 @@ def balancing_rxns(page):
     answers = []
     page_4_text = [
         "Identify the reactants and products and write their correct formulas.",
-        "Count the number of each element that appears on each side of the equation.<br> If helpful, use a chart to count atoms.",
+        "Count the number of each element that appears on each side of the equation.<br> <span style='color: purple;'>If helpful, use a chart to count atoms.</span>",
         "Begin balancing by adjusting the coefficients for the element that appears in the FEWEST number of formulas.<br> <strong>DO NOT CHANGE THE SUBSCRIPTS!!!!</strong>",
         "Continue adjusting the coefficients to balance the remaining elements. Save H or O for last.",
         "<u>TIP</u>: Treat polyatomic ions as units.",
