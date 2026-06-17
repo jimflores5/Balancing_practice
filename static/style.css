@@ -130,6 +130,12 @@ sub {
     width: 95%;
 }
 
+.frame-fig {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+}
+
 .dynamic-button {
     width: fit-content;
     font-size: 1.0vw;

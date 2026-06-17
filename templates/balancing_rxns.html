@@ -46,14 +46,18 @@
             {% elif page == 2 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Video Title</h3>
+                        <h3 class="frame-heading">Key Terms for Chemical Equations</h3>
                         <video class="border border-dark intro-vid" width="100%" height="auto" controls>
                             Video goes here!
                         </video>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Text Intro</h3>
-                        <p class="frame-text">Figures showing vocab parts plus coeffs vs. subscripts.</p>
+                        <h3 class="frame-heading">Chemical Reaction Breakdown</h3>
+                        <figure class="figure frame-fig">
+                            <img src="{{url_for('static', filename='rxn_vocab.png')}}" class="figure-img img-fluid" alt="Diagram labeling the differences between chemical formulas and chemical equations, reactants vs. products, and coefficients vs. subscripts.">
+                        </figure>
+                        <hr>              
+                        <p class="sub-instructions" style="text-align: center;">Watch the video for more details!</p>
                     </section>
                 </section>
             {% elif page == 3 %}
