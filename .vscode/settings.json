@@ -4,6 +4,7 @@
         "coeff",
         "coeffs",
         "coefs",
+        "emsp",
         "rxns"
     ],
     "python.languageServer": "Pylance",
