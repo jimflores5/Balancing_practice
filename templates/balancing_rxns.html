@@ -47,9 +47,16 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Key Terms for Chemical Equations</h3>
-                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
-                            Video goes here!
-                        </video>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='rxn_vocab.mp4')}}" width="100%" height="auto" controls></video>
+                        <div>
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
                     </section>
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Chemical Reaction Breakdown</h3>
