@@ -2,7 +2,107 @@
 
 {% block content %}
     <section class="wrapper text-center">
-        <h2 class="subheading">{{subheading}}</h2>
-        <h3>Nothing here yet!</h3>
+        <h2 class="subheading">{{subheadings[page-1]}}</h2>
+        <section class="container-fluid frame-width">
+            {% if page == 1 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">What if we're not given the products?</h3>
+                        <ul class="frame-text text-left bullets">
+                            <li>Lorem ipsum...</li>
+                            <li>More ipsum...</li>
+                            <li>Even more ipsum...</li>
+                            <li>Prior knowledge needed...</li>
+                            <li>chemnomenclature.org URL...</li>
+                        </ul>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Writing Formulas Practice</h3>
+                        <p class="frame-text">Identify the chemical formula for each of the following:</p>
+                        <ol class="frame-text text-left bullets">
+                            <li>Lorem ipsum...</li>
+                            <li>More ipsum...</li>
+                            <li>Even more ipsum...</li>
+                        </ol>
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Reveal Answers
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="frame-text text-left">
+                                <ol class="bullets">
+                                    <li>Answer ipsum...</li>
+                                    <li>More answer ipsum...</li>
+                                    <li>Even more answer ipsum...</li>
+                                </ol>
+                            </div>
+                        </div>               
+                    </section>
+                </section>
+            {% elif page == 2 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">The reaction characteristics stay the same!</h3>
+                        <ul class="frame-text text-left bullets">
+                            <li>Synthesis example...</li>
+                            <li>Decomposition example...</li>
+                            <li>Single replacement example...</li>
+                            <li>Double replacement example...</li>
+                            <li>Combustion example...</li>
+                        </ul>
+                        <p class="frame-text">Identifying the reaction type helps us predict the formulas for the products.</p>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Identify the reaction type for the processes shown below.</h3>
+                        <p>Equation #1</p>
+                        <hr>
+                        <p>Equation #2</p>
+                        <p>Submit and Refresh buttons here...</p>
+                    </section>
+                </section>
+            {% elif page == 3%}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Predicting Ionic Products</h3>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='rxn_vocab.mp4')}}" width="100%" height="auto" controls></video>
+                        <div>
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Practice</h3>
+                        <ol class="frame-text text-left bullets">
+                            <li>Lorem ipsum...</li>
+                            <li>More ipsum...</li>
+                            <li>Even more ipsum...</li>
+                        </ol>
+                    </section>
+                </section>                
+            {% else %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Predicting Combustion Products</h3>
+                        <ul class="sub-instructions bullets">
+                            <li>Lorem ipsum...</li>
+                            <li>More ipsum...</li>
+                            <li>Even more ipsum...</li>
+                        </ul>
+                    </section>
+                    <section class="col-6 text-center border border-dark bce-table">
+                        <h3 class="frame-heading">Practice</h3>
+                        {% with messages = get_flashed_messages(with_categories=True) %}
+                            <p>ID products practice question(s)...</p>
+                        {% endwith %}
+                    </section>
+                </section>
+            {% endif %}
+        </section>
     </section>
 {% endblock %}

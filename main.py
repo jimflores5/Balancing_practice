@@ -188,20 +188,16 @@ def balancing_rxns(page):
 @app.route('/predict_prods/<page>', methods=['POST', 'GET'])
 def predict_prods(page):
     page_title = 'Predicting Products'
-    num_pages = 3
+    num_pages = 4
     template_name = 'predict_prods'
     page = int(page)
+    subheadings = ['Sometimes, not all chemical formulas will be given for a reaction.', 'Even with missing compounds, we can still identify reaction types.', 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.', 'Predicting products for combustion reactions.']
     if request.method == 'POST':
         pass
-
-    if page == 1:
-        subheading = 'Sometimes, not all of the chemical formulas will be given.'
-    elif page == 2:
-        subheading = 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.'
     else:
-        subheading = 'Predicting products for combustion reactions.'
+        pass
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheading = subheading)
+            num_pages = num_pages, template = template_name, subheadings = subheadings)
 
 @app.route('/balancing_practice', methods=['POST', 'GET'])
 def balancing_practice():
