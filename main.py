@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions, types_of_rxns_text
+from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -152,15 +152,6 @@ def balancing_rxns(page):
     page = int(page)
     subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
     answers = []
-    page_4_text = [
-        "Identify the reactants and products and write their correct formulas.",
-        "Count the number of each element that appears on each side of the equation.<br> <span style='color: purple;'>If helpful, use a chart to count atoms.</span>",
-        "Begin balancing by adjusting the coefficients for the element that appears in the FEWEST number of formulas.<br> <strong>DO NOT CHANGE THE SUBSCRIPTS!!!!</strong>",
-        "Continue adjusting the coefficients to balance the remaining elements. Save H or O for last.",
-        "<u>TIP</u>: Treat polyatomic ions as units.",
-        "Once balanced, make sure the coefficients are in the smallest ratio of whole numbers.",
-        "<strong>ALWAYS CHECK YOUR WORK!!!!!</strong>"
-    ]
     if request.method == 'POST':
         question = session['rxn_to_balance']
         answers = []

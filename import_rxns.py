@@ -10,6 +10,7 @@ def import_names(filename):
 
 reaction_data = import_names('reactions.txt')
 types_data = import_names('types_tutorial.txt')
+page_4_text = import_names('how_to_balance.txt')
 # Create an empty dictionary to hold the reactions to balance.
 # Each reaction falls into 1 of 5 types.
 # For now, we will ignore overlaps between combustion and synthesis.
