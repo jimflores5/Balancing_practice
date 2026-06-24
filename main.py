@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions
+from import_rxns import reactions, all_reactions, types_of_rxns_text
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -122,14 +122,38 @@ def index():
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
 def rxn_types(page):
     page_title = 'Types of Reactions'
+    template = 'rxn_types'
     num_pages = 7
-    template_name = 'rxn_types'
     page = int(page)
+    page_content = list(types_of_rxns_text.keys())
+    rxn_types = list(reactions.keys())
+    answers = []
+    subheading = page_content[page-1].replace('_',' ').title()
+    bullet_points = types_of_rxns_text[page_content[page-1]]
     if request.method == 'POST':
-        pass
+        questions = session['questions']
+        for index in range(len(questions)):
+            answers.append(request.form['answer_'+str(index+1)])  #Pull user answers into a list.
+        check_type_answers(session['check_these'], answers)
+    else:
+        questions = []
+        choices = []
+        picked = []
+        if page == 6:
+            while len(questions) < 2:
+                type_choice = random.choice(rxn_types)
+                rxn_number = random.choice(range(1,len(reactions[type_choice])))
+                rxn = reactions[type_choice][rxn_number]
+                if rxn[0] not in picked:
+                    picked.append(rxn[0])
+                    choices.append([rxn[0], type_choice])
+                    questions.append([len(questions)+1, Markup(render_equation(rxn[0]))])
+            session['questions'] = deepcopy(questions)
+            session['check_these'] = deepcopy(choices)
 
     return render_template('rxn_types.html',title='Types of Reactions', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name)
+            num_pages = num_pages, subheading = subheading, template = template, bullet_points = bullet_points,
+            questions = questions, answers = answers, rxn_types = rxn_types)
 
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):

@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "coeff",
+        "emsp",
         "rxns"
     ],
     "python.languageServer": "Pylance",

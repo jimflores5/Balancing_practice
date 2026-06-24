@@ -9,6 +9,7 @@ def import_names(filename):
     return lines
 
 reaction_data = import_names('reactions.txt')
+types_data = import_names('types_tutorial.txt')
 # Create an empty dictionary to hold the reactions to balance.
 # Each reaction falls into 1 of 5 types.
 # For now, we will ignore overlaps between combustion and synthesis.
@@ -18,6 +19,16 @@ reactions = {
     'single_replacement':{},
     'double_replacement':{},
     'combustion':{}
+}
+
+types_of_rxns_text = {
+    'synthesis': [],
+    'decomposition':[],
+    'single_replacement':[],
+    'double_replacement':[],
+    'combustion':[],
+    'practice_identifying_types':[],
+    'other_reaction_types':[]
 }
 
 # Create an empty list to hold all the reactions with no reaction type info.
@@ -35,3 +46,9 @@ for entry in reaction_data:
         # Add the reaction to the appropriate dictionary.
         reactions[rxn_type][int(temp[0])] = temp[1:]
         all_reactions.append(temp[1:])
+
+for entry in types_data:
+    if '*' in entry:
+        rxn_type = entry[2:].lower()
+    else:
+        types_of_rxns_text[rxn_type].append(entry)
