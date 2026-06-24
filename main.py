@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions, types_of_rxns_text
+from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -97,18 +97,6 @@ def render_equation(raw_rxn):
     final_rxn = re.sub(r'(\d+)', r'<sub>\1</sub>', raw_rxn)
     return final_rxn
 
-@app.route('/rxns', methods = ['GET', 'POST'])
-def rxns():
-    if request.method == 'POST':
-        rxn_type = request.form['rxn_type']
-        keys = random.sample(range(1, len(reactions[rxn_type])+1), 3)
-        chosen_rxns = {}
-        for index in range(len(keys)):
-            chosen_rxns[index+1] = reactions[rxn_type][index+1]
-        session['questions'] = chosen_rxns
-
-        return render_template('rxns.html', title = 'Balancing Practice', reactions = chosen_rxns)
-
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -117,6 +105,7 @@ def index():
         session.clear()
         session['num_attempted'] = 0
         session['numCorrect'] = 0
+        session['used_practice_questions'] = []
     return render_template('index.html', title = 'Balancing Practice')
 
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
@@ -158,20 +147,43 @@ def rxn_types(page):
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):
     page_title = 'Balancing Chemical Equations'
-    num_pages = 3
+    num_pages = 4
     template_name = 'balancing_rxns'
     page = int(page)
+    subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
+    answers = []
     if request.method == 'POST':
-        pass
-
-    if page == 1:
-        subheading = 'Conservation of Mass'
-    elif page == 2:
-        subheading = 'Steps to balance a reaction.'
+        question = session['rxn_to_balance']
+        answers = []
+        num_inputs = question[1].count('+') + 2
+        row_answers = []
+        for entry in range(num_inputs):
+            answer = request.form['box'+str(entry+1)]
+            if answer == '':
+                answer = '1'
+            elif not answer.isdigit() and '-' not in answer:
+                answer = '1'
+            row_answers.append(int(answer))
+        answers.append(tuple(row_answers))
+        print(answers)
+        check_bce_answers(session['check_these'], answers)
     else:
-        subheading = 'First Practice!'
+        if page == 4:
+            rxn_to_balance = []
+            coefficients = []
+            if len(session['used_practice_questions']) > 60:
+                session['used_practice_questions'] = []
+            while len(rxn_to_balance) < 1:
+                rxn = random.choice(all_reactions)
+                if rxn[0] not in session['used_practice_questions']:
+                    session['used_practice_questions'].append(rxn[0])
+                    coefficients.append(rxn[1])
+                    rxn_to_balance = [len(rxn_to_balance)+1, Markup(render_equation(rxn[0]))]
+            session['rxn_to_balance'] = deepcopy(rxn_to_balance)
+            session['check_these'] = deepcopy(coefficients)
+        
     return render_template('balancing_rxns.html',title='How to Balance a Reaction', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheading = subheading)
+            num_pages = num_pages, template = template_name, subheadings = subheadings, answers = answers, page_4_text = page_4_text)
 
 @app.route('/predict_prods/<page>', methods=['POST', 'GET'])
 def predict_prods(page):
