@@ -34,10 +34,18 @@
         </section>
         <section class="col-6 text-left border border-dark">
             {% if page <= 5 %}
+                {% set vid_name = vid_names[page-1] %}
                 <h3 class="frame-heading">Demo of a {{subheading}} Reaction</h3>
-                <video class="border border-dark intro-vid" width="100%" height="auto" controls>
-                    Video goes here!
-                </video>
+                <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename=vid_name)}}" width="100%" height="auto" controls></video>
+                    <div class="container-fluid text-center">
+                        <label for="speed-select">Speed: </label>
+                        <select id="speed-select" class="vid-controls">
+                            <option value="0.5">0.5x</option>
+                            <option value="1.0" selected>1.0x (Normal)</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2.0">2.0x</option>
+                        </select>
+                    </div>
             {% elif page == 6 %}
                 <h3 class="frame-heading">Practice!</h3>
                 {% with messages = get_flashed_messages(with_categories=True) %}

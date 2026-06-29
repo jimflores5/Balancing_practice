@@ -119,6 +119,7 @@ def rxn_types(page):
     answers = []
     subheading = page_content[page-1].replace('_',' ').title()
     bullet_points = types_of_rxns_text[page_content[page-1]]
+    vid_names = ['synthesis_rxn.mp4', 'decomp_rxn.mp4', 'single_rep_rxn.mp4', 'double_rep_rxn.mp4', 'combustion_rxn.mp4']
     if request.method == 'POST':
         questions = session['questions']
         for index in range(len(questions)):
@@ -142,7 +143,7 @@ def rxn_types(page):
 
     return render_template('rxn_types.html',title='Types of Reactions', page = page, page_title = page_title, 
             num_pages = num_pages, subheading = subheading, template = template, bullet_points = bullet_points,
-            questions = questions, answers = answers, rxn_types = rxn_types)
+            questions = questions, answers = answers, rxn_types = rxn_types, vid_names = vid_names)
 
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):
