@@ -5,12 +5,18 @@
         <h2 class="subheading">{{subheading}}</h2>
     </section>
     <section class="container-fluid row justify-content-center">
-        <section class="col-6 text-center border border-dark">
-            {% if page != 6 %}
-                <h3 class="frame-heading">Reaction Characteristics</h3>
-                {% if page == 7 %}
-                    <p class="frame-text text-left">The following reaction types exist but will not be assessed on this website:</p>
+        <section class="col-6 text-center border border-dark">                
+            {% if page != 7 %}
+                {% if page == 1 %}
+                    <h3 class="frame-heading">Classifying Reactions</h3>
+                {% elif page == 8 %}
+                    <h3 class="frame-heading">Other reaction types exist but will not be assessed on this website:</h3>
+                {% else %}
+                    <h3 class="frame-heading">Reaction Characteristics</h3>
                 {% endif %}
+                <!-- {% if page == 8 %}
+                    <p class="frame-text text-left">The following reaction types exist but will not be assessed on this website:</p>
+                {% endif %} -->
                 <ol id="bullet_list" class="frame-text text-left bullets" type="a">
                     {% for item in bullet_points %}
                         {% if bullet_points.index(item) == 0 %}
@@ -33,7 +39,7 @@
             {% endif %}
         </section>
         <section class="col-6 text-left border border-dark">
-            {% if page <= 5 %}
+            {% if page > 1 and page <= 6 %}
                 {% set vid_name = vid_names[page-1] %}
                 <h3 class="frame-heading">Demo of a {{subheading}} Reaction</h3>
                 <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename=vid_name)}}" width="100%" height="auto" controls></video>
@@ -46,7 +52,7 @@
                         <option value="2.0">2.0x</option>
                     </select>
                 </div>
-            {% elif page == 6 %}
+            {% elif page == 7 %}
                 <h3 class="frame-heading">Practice!</h3>
                 {% with messages = get_flashed_messages(with_categories=True) %}
                     <form action="/rxn_types/{{page}}" method="POST">
@@ -84,11 +90,16 @@
                         <br>
                     </form>
                 {% endwith %}
+            {% elif page == 1 %}
+                <h3 class="frame-heading">Reaction Categories</h3>
+                <figure class="figure frame-fig">
+                    <img src="{{url_for('static', filename='types_diagram.png')}}" class="figure-img img-fluid" alt="Graphic organizer showing the different categories of chemical reactions.">
+                </figure>
             {% else %}
                 <h3 class="frame-heading">Reactions Not Appearing in This Film</h3>
-                <div class="frame-text">Figure for dissociation reaction...</div>
-                <div class="frame-text">Figure for acid/base reaction...</div>
-                <div class="frame-text">Figure for redox reaction...</div>
+                <figure class="figure frame-fig">
+                    <img src="{{url_for('static', filename='other_rxns.png')}}" class="figure-img img-fluid" alt="Diagram showing the characteristics of dissociation, neutralization, and oxidation-reduction reactions.">
+                </figure>
             {% endif %}
         </section>
     </section>

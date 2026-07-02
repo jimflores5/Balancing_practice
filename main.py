@@ -112,14 +112,14 @@ def index():
 def rxn_types(page):
     page_title = 'Types of Reactions'
     template = 'rxn_types'
-    num_pages = 7
+    num_pages = 8
     page = int(page)
     page_content = list(types_of_rxns_text.keys())
     rxn_types = list(reactions.keys())
     answers = []
     subheading = page_content[page-1].replace('_',' ').title()
     bullet_points = types_of_rxns_text[page_content[page-1]]
-    vid_names = ['synthesis_rxn.mp4', 'decomp_rxn.mp4', 'single_rep_rxn.mp4', 'double_rep_rxn.mp4', 'combustion_rxn.mp4']
+    vid_names = ['', 'synthesis_rxn.mp4', 'decomp_rxn.mp4', 'single_rep_rxn.mp4', 'double_rep_rxn.mp4', 'combustion_rxn.mp4']
     if request.method == 'POST':
         questions = session['questions']
         for index in range(len(questions)):
@@ -129,7 +129,7 @@ def rxn_types(page):
         questions = []
         choices = []
         picked = []
-        if page == 6:
+        if page == 7:
             while len(questions) < 2:
                 type_choice = random.choice(rxn_types)
                 rxn_number = random.choice(range(1,len(reactions[type_choice])))
