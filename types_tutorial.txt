@@ -35,7 +35,7 @@ Here's an example of a double replacement reaction that forms water: <br><strong
 **Combustion
 In a <strong>combustion</strong> reaction, a substance <strong>burns in oxygen (O<sub>2</sub>)</strong>.
 Each product of a combustion reaction contains the substance's original elements plus oxygen.
-For example: <strong>4NH<sub>3</sub> + 7O<sub>2</sub> -> 4NO<sub>2</sub> + 6H<sub>2</sub>O</strong><br>Oxygen (O<sub>2</sub>) appears as a reactant, and each product contains O atoms in the formula.
+For example: <strong>4NH<sub>3</sub> + 7O<sub>2</sub> -> 4NO<sub>2</sub> + 6H<sub>2</sub>O</strong><br>Oxygen (O<sub>2</sub>) appears as a reactant, and each product contains some amount of oxygen in the formula.
 When a compound contains carbon (C) and hydrogen (H), the combustion products will include CO<sub>2(g)</sub> and H<sub>2</sub>O<sub>(g)</sub>.
 For example:<br> <strong>CH<sub>4</sub> + 2O<sub>2</sub> -> CO<sub>2</sub> + 2H<sub>2</sub>O</strong><br> <strong>C<sub>2</sub>H<sub>5</sub>OH + 3O<sub>2</sub> -> 2CO<sub>2</sub> + 3H<sub>2</sub>O</strong>
 Let's repeat the characterisitcs of a combustion reaction:<br> <strong>- O<sub>2</sub> appears as a reactant.</strong><br> <strong>- Oxygen (O) appears in every prodcut.</strong>
