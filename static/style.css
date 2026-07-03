@@ -139,6 +139,7 @@ sub {
 .dynamic-button {
     width: fit-content;
     font-size: 1.0vw;
+    margin-bottom: 1%;
 }
 
 .intro-vid {

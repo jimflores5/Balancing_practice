@@ -23,6 +23,7 @@ reactions = {
 }
 
 types_of_rxns_text = {
+    'introduction': [],
     'synthesis': [],
     'decomposition':[],
     'single_replacement':[],

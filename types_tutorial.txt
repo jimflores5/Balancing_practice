@@ -1,10 +1,16 @@
+**Introduction
+Chemical reactions can be split into two general categories.
+<strong>Exothermic reactions</strong> release heat as they run.<br> If you touch an exothermic reaction, the reaction will feel warm or hot because heat energy flows FROM the reaction INTO your hand.
+<strong>Endothermic reactions</strong> absrob heat from the surroundings as they run.<br> If you touch an endothermic reaction, the reaction will feel cool or cold because heat energy flows FROM your hand INTO the reaction.
+Reactions can also be classified into smaller categories. We will consider 5 <em>reaction types</em> on the following pages.<br> <strong>Synthesis, Decomposition, Singe Replacement, Double Replacement, Combustion</strong>
+Each <em>type of reaction</em> shows a specific set of characterisitcs.
 **Synthesis
 In a <strong><em>synthesis</em></strong> reaction, two or more substances react to form a <strong>SINGLE product</strong>.
 For example, iron reacts with oxygen to form iron (III) oxide:<br> <strong>4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub></strong><br> Only one compound (Fe<sub>2</sub>O<sub>3</sub>) appears on the product side.
 In a synthesis process, the reactants may be elements, compounds, or a mix of elements and compounds.
 Here's a synthesis reaction where three compounds combine:<br> <strong>CaO + 2CO<sub>2</sub> + H<sub>2</sub>O -> Ca(HCO<sub>3</sub>)<sub>2</sub></strong>
 Synthesis reactions are also called <strong><em>combination</em></strong> reactions.
-Play the video to see two examples of a synthesis reaction!
+Play the video to see another example of a synthesis reaction!<br> <strong>2Mg<sub>(s)</sub> + O<sub>2(g)</sub> -> 2MgO<sub>(s)</sub></strong>
 **Decomposition
 In a <strong>decomposition</strong> reaction, a <strong>SINGLE reactant</strong> breaks down into two or more simpler substances.
 The <em>simpler substances</em> may be elements OR compounds.
@@ -29,9 +35,10 @@ Here's an example of a double replacement reaction that forms water: <br><strong
 **Combustion
 In a <strong>combustion</strong> reaction, a substance <strong>burns in oxygen (O<sub>2</sub>)</strong>.
 Each product of a combustion reaction contains the substance's original elements plus oxygen.
-For example: <strong>4NH<sub>3</sub> + 7O<sub>2</sub> -> 4NO<sub>2</sub> + 6H<sub>2</sub>O</strong><br>Oxygen (O<sub>2</sub>) appears as a reactant, and each product contains O atoms in the formula.
+For example: <strong>4NH<sub>3</sub> + 7O<sub>2</sub> -> 4NO<sub>2</sub> + 6H<sub>2</sub>O</strong><br>Oxygen (O<sub>2</sub>) appears as a reactant, and each product contains some amount of oxygen in the formula.
 When a compound contains carbon (C) and hydrogen (H), the combustion products will include CO<sub>2(g)</sub> and H<sub>2</sub>O<sub>(g)</sub>.
 For example:<br> <strong>CH<sub>4</sub> + 2O<sub>2</sub> -> CO<sub>2</sub> + 2H<sub>2</sub>O</strong><br> <strong>C<sub>2</sub>H<sub>5</sub>OH + 3O<sub>2</sub> -> 2CO<sub>2</sub> + 3H<sub>2</sub>O</strong>
+Let's repeat the characterisitcs of a combustion reaction:<br> <strong>- O<sub>2</sub> appears as a reactant.</strong><br> <strong>- Oxygen (O) appears in every prodcut.</strong>
 **Practice_identifying_types
 **Other_reaction_types
 <strong>Dissociation reactions</strong> occur when an ionic compound dissolves in water and splits into positive ions (cations) and negative ions (anions).
