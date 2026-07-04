@@ -13,9 +13,7 @@
                             <li>Steel wool (which is mostly iron) burns.</li>
                         </ol>
                         <p class="frame-text text-center">Play the video below to see the reactions in action!</p>
-                        <video id="lesson-video" class="border border-dark intro-vid" width="100%" height="auto" controls>
-                            Video goes here!
-                        </video>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='conservation_1.mp4')}}" width="100%" height="auto" controls></video>
                         <div class="container-fluid text-center">
                             <label for="speed-select">Speed: </label>
                             <select id="speed-select" class="vid-controls">
@@ -54,9 +52,7 @@
                         </ul>
                         <hr>
                         <p class="frame-text">Let's take mass measurements as we run the same two reactions:</p>
-                        <video id="lesson-video" class="border border-dark intro-vid" width="100%" height="auto" controls>
-                            Video goes here!
-                        </video>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='conservation_2.mp4')}}" width="100%" height="auto" controls></video>
                         <div class="container-fluid text-center">
                             <label for="speed-select">Speed: </label>
                             <select id="speed-select" class="vid-controls">
