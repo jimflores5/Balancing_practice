@@ -148,10 +148,10 @@ def rxn_types(page):
 @app.route('/balancing_rxns/<page>', methods=['POST', 'GET'])
 def balancing_rxns(page):
     page_title = 'Balancing Chemical Equations'
-    num_pages = 4
+    num_pages = 5
     template_name = 'balancing_rxns'
     page = int(page)
-    subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
+    subheadings = ['How Does Mass Change During a Chemical Reaction?', 'Checking for Conservation', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
     answers = []
     if request.method == 'POST':
         question = session['rxn_to_balance']
