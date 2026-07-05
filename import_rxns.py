@@ -11,6 +11,8 @@ def import_names(filename):
 reaction_data = import_names('reactions.txt')
 types_data = import_names('types_tutorial.txt')
 page_4_text = import_names('how_to_balance.txt')
+incomplete_rxn_data = import_names('incomplete_reactions.txt')
+
 # Create an empty dictionary to hold the reactions to balance.
 # Each reaction falls into 1 of 5 types.
 # For now, we will ignore overlaps between combustion and synthesis.
@@ -22,6 +24,7 @@ reactions = {
     'combustion':{}
 }
 
+# Create an empty dictionary to hold the bullet point text for the types of reactions tutorial pages.
 types_of_rxns_text = {
     'introduction': [],
     'synthesis': [],
@@ -36,6 +39,14 @@ types_of_rxns_text = {
 # Create an empty list to hold all the reactions with no reaction type info.
 all_reactions = []
 
+# Create an empty dictionary to organize equations that will show missing reactants or products.
+incomplete_rxns = {
+    'remove_1_reactant': {},
+    'remove_all_products': {},
+    'remove_1_product': {}
+}
+
+# Fill reactions dictionary and all_reactions list.
 for entry in reaction_data:
     # Check if entry is a header for a reaction type.
     if '*' in entry:
@@ -49,8 +60,21 @@ for entry in reaction_data:
         reactions[rxn_type][int(temp[0])] = temp[1:]
         all_reactions.append(temp[1:])
 
+# Fill in types_of_rxns_text.
 for entry in types_data:
     if '*' in entry:
         rxn_type = entry[2:].lower()
     else:
         types_of_rxns_text[rxn_type].append(entry)
+
+# Fill in incomplete_rxns dictionary.
+for entry in incomplete_rxn_data:
+    if '*' in entry:
+        heading = entry[2:].lower()
+    else:
+        # Split the entry into 3 pieces - index, reaction, answer.
+        temp = entry.split(';')
+        # Convert the string answer into a tuple.
+        temp[-1] = ast.literal_eval(temp[-1])
+        # Add the reaction to the incomplete_rxns dictionary.
+        incomplete_rxns[heading][int(temp[0])] = temp[1:]

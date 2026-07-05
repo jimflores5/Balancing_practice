@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text
+from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text, incomplete_rxns
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -84,6 +84,21 @@ def id_mistakes(corrects, ans):
         else:
             mistakes.append('X')
     return ', '.join(mistakes)
+
+def remove_cpds(label, reaction):
+    reactants = reaction[0].split('->')[0].split(',')
+    products = reaction[0].split('->')[1].split(',')
+    if label == 'remove_1_reactant':
+        index = random.randint(0, len(reactants)-1)
+        reactants[index] = 'X'
+    elif label == 'remove_1_product':
+        index = random.randint(0, len(products)-1)
+        products[index] = 'X'
+    else:
+        for index in range(len(products)):
+            products[index] = 'X'
+    reaction[0] = ','.join(reactants) + '->' + ','.join(products)
+    return reaction
 
 @app.template_filter('subscript')
 def render_equation(raw_rxn):
@@ -172,6 +187,7 @@ def balancing_rxns(page):
         if page == 4:
             rxn_to_balance = []
             coefficients = []
+            # Put a limit on used_practice_questions to avoid an infinite loop!
             if len(session['used_practice_questions']) > 60:
                 session['used_practice_questions'] = []
             while len(rxn_to_balance) < 1:
@@ -251,10 +267,24 @@ def balancing_practice_2():
         pass
     else:
         session['first_try'] = True
-        questions = []
+        still_searching = True
+        # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
+        while still_searching:
+            options = random.choice(list(incomplete_rxns.keys()))
+            rxn_number = random.choice(list(incomplete_rxns[options].keys()))
+            original_rxn = incomplete_rxns[options][rxn_number]
+            new_rxn = remove_cpds(options, deepcopy(incomplete_rxns[options][rxn_number]))
+            if new_rxn[0] not in session['used_practice_questions']:
+                session['used_practice_questions'].append(new_rxn[0])
+                still_searching = False
+            question = [original_rxn, Markup(render_equation(new_rxn[0]))]
+        # Put a limit on used_practice_questions to avoid an infinite loop!
+        if len(session['used_practice_questions']) > 60:
+            session['used_practice_questions'] = []
+        session['num_blanks'] = new_rxn[0].count('X')
     
     return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
-            template = template_name, questions = questions, answers = answers)
+            template = template_name, question = question, answers = answers)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():

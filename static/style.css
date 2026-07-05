@@ -14,6 +14,35 @@
     color:purple;
 }
 
+.formula-input {
+    width: 35%;
+    text-align: center;
+    font-size: 1.5vw;
+    background-color: transparent;
+    color:purple;
+}
+
+.formula-output {
+    margin-top: 1%;
+    font-size: 1.5vw;
+    text-align: center;
+    min-height: 1.5em;
+    color: brown;
+}
+
+.formula-slot {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.equation-row {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    font-size: 1.5vw;
+}
+
 /* Removes the "spinners" (up/down arrows) for a cleaner look */
 .coeff-input::-webkit-inner-spin-button,
 .coeff-input::-webkit-outer-spin-button {

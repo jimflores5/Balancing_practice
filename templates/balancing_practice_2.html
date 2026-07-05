@@ -4,73 +4,118 @@
     <section class="container-fluid wrapper text-center">
         <h1 class="main-heading">{{page_title}}</h1>
         <section>
-            <p class="instructions">Instructions go here...</p>
+            <p class="instructions">For the reaction shown below:</p>
+            <ul class="sub-instructions">
+                <li>Enter the chemical formulas for the missing reactants or products.</li>
+                <!-- <li>Once the formulas are correct, balance the chemical equation.</li> -->
+                <li>Click <strong><em>Check Answer</em></strong> to receive feedback on your formulas.</li>
+            </ul>
         </section>
     </section>
-    <section class="container wrapper text-center">
+    <hr>
+    <section class="container-fluid frame-width text-center bce-table">
         {% with messages = get_flashed_messages(with_categories=True) %}
             <form action="/balancing_practice_2" method="POST">
-                <table class="table bce-table">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th scope="col" style="width: 2%;"></th>
-                            <th scope="col" style="width: 35%;"></th>
-                            <th scope="col" style="width: 2%;">Reaction</th>
-                            <th scope="col" style="width: 35%;"></th>
-                            <th scope="col" style="width: 26%;">Feedback</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for question in questions %}
-                            {# Split reaction into reactant and product sides. #}
-                            {% set sides = question[1].split('->') %}
-                            {% set reactants = sides[0].split('__') %}
-                            {% set products = sides[1].split('__') %}
-                            <tr>
-                                <th scope="row">{{question[0]}}</th>
-                                <td style="text-align: right;">
-                                    {% for formula in reactants[1:] %}
-                                        {% if answers %}
-                                            <input type="number" id="question{{question[0]}}_{{loop.index}}" name="box{{question[0]}}_{{loop.index}}" class="coeff-input" value="{{answers[question[0]-1][loop.index-1]}}">
-                                        {% else %}
-                                            <input type="number" id="question{{question[0]}}_{{loop.index}}" name="box{{question[0]}}_{{loop.index}}" class="coeff-input" placeholder="?">
-                                        {% endif %}
-                                        <label for="question{{question[0]}}_{{loop.index}}">{{formula}}</label>
-                                    {% endfor %}
-                                </td>
-                                <td style="text-align: center;">
-                                    &rarr;
-                                </td>
-                                <td style="text-align: left;">
-                                    {% for formula in products[1:] %}
-                                        {% if answers %}
-                                            <input type="number" id="question{{question[0]}}_{{loop.index + reactants[1:]|length}}" name="box{{question[0]}}_{{loop.index + reactants[1:]|length}}" class="coeff-input" value="{{answers[question[0]-1][loop.index + reactants[1:]|length - 1]}}">
-                                        {% else %}
-                                            <input type="number" id="question{{question[0]}}_{{loop.index + reactants[1:]|length}}" name="box{{question[0]}}_{{loop.index + reactants[1:]|length}}" class="coeff-input" placeholder="?">
-                                        {% endif %}
-                                        <label for="question{{question[0]}}_{{loop.index + reactants[1:]|length}}">{{formula}}</label>
-                                    {% endfor %}
-                                </td>
-                                <td style="text-align: left;">
-                                    {% if messages %}
-                                        {% set item = questions.index(question) %}
-                                        {% set message = messages[item] %}
-                                        <p class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</p>
-                                    {% endif %}
-                                </td>
-                            </tr>
+                {# Split reaction into reactant and product sides. #}
+                {% set sides = question[1].split('->') %}
+                {% set reactants = sides[0].split('+') %}
+                {% set products = sides[1].split('+') %}
+                <section class="row">
+                    <div class="col-4" style="text-align: right;">
+                        {% for formula in reactants %}
+                            {% if 'X' not in formula %}
+                                <span>{{formula}}</span>
+                            {% else %}
+                                {% if answers %}
+                                    <input onkeyup="display(this,0)" type="text" name="box{{loop.index}}" class="formula-input" value="Rutabaga!">
+                                {% else %}
+                                    <input onkeyup="display(this,0)" type="text" name="box{{loop.index}}" class="formula-input" placeholder="?">
+                                {% endif %}
+                            {% endif %}
+                            {% if reactants.index(formula) != reactants|length - 1 %}
+                                <span style="text-align: center;"> + </span>
+                            {% endif %}
                         {% endfor %}
-                    </tbody>
-                </table>
-                <br>
+                    </div>
+                    <div class="col-1" style="text-align: center;">
+                        &rarr;
+                    </div>
+                    <div class="col-4" style="text-align: left;">
+                        {% if session['num_blanks'] == 1 %}
+                            {% for formula in products %}
+                                {% if 'X' not in formula %}
+                                    <span>{{formula}}</span>
+                                {% else %}
+                                    {% if answers %}
+                                        <input onkeyup="display(this,0)" type="text" name="box0" class="formula-input" value="{{answers[0]}}">
+                                    {% else %}
+                                        <input onkeyup="display(this,0)" type="text" name="box0" class="formula-input" placeholder="?">
+                                    {% endif %}
+                                {% endif %}
+                                {% if products.index(formula) != products|length - 1 %}
+                                    <span style="text-align: center;"> + </span>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% if answers %}
+                                <input onkeyup="display(this,0)" type="text" name="box0" class="formula-input" value="{{answers[0]}}">
+                                <span style="text-align: center;"> + </span>
+                                <input onkeyup="display(this,1)" type="text" name="box1" class="formula-input" value="{{answers[1]}}">
+                            {% else %}
+                                <input onkeyup="display(this,0)" type="text" name="box0" class="formula-input" placeholder="?">
+                                <span style="text-align: center;"> + </span>
+                                <input onkeyup="display(this,1)" type="text" name="box1" class="formula-input" placeholder="?">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <section class="col-3">
+                        <p class="frame-text">Formula: <span id="dynamicFormula_0" for="box0" style="color:purple"></span></p>
+                        {% if session['num_blanks'] == 2 %}
+                            <p class="frame-text">Formula: <span id="dynamicFormula_1" for="box1" style="text-align: left; color:purple"></span></p>
+                        {% endif %}
+                    </section>
+                    <section class="row">
+                        {% if messages %}
+                            {% set message = messages[0] %}
+                            <p class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</p>
+                        {% endif %}
+                    </section>
+                </section>
+                <hr>
                 <section class="container-fluid wrapper text-center button-box">
-                    <a class="btn btn-info dynamic-button" href="/balancing_practice_2" role="button">New Reactions</a>
-                    <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                    <a class="btn btn-info dynamic-button" href="balancing_practice_2" role="button">New Reaction</a>
+                    <button type="submit" class="btn btn-success dynamic-button">Check Answer</button>
                     <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
                 </section>
             </form>
         {% endwith %}
     </section>
     <hr>
-    <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
+    <section class="container-fluid frame-width text-center bce-table">
+        <section class="row">
+            <section class="col">
+                <p class="record">Formula Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
+            </section>
+            <section class="col">
+                <p class="record">Balancing Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
+            </section>
+        </section>
+    </section>
+    <script>
+        function display(entry, index)
+        {
+            var k=entry.value;
+            var result = '';
+            digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            for (char in k){
+                if (k[char] in digits){
+                    result += k[char].sub();
+                }
+                else{
+                    result += k[char];
+                }
+            }
+            document.getElementById("dynamicFormula_"+index.toString()).innerHTML = result;
+        }
+    </script>
 {% endblock %} 
