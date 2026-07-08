@@ -9,11 +9,9 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">What if we're not given the products?</h3>
                         <ul class="frame-text text-left bullets">
-                            <li>Lorem ipsum...</li>
-                            <li>More ipsum...</li>
-                            <li>Even more ipsum...</li>
-                            <li>Prior knowledge needed...</li>
-                            <li>chemnomenclature.org URL...</li>
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
                         </ul>
                     </section>
                     <section class="col-6 text-center border border-dark">
@@ -45,11 +43,9 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">The reaction characteristics stay the same!</h3>
                         <ul class="frame-text text-left bullets">
-                            <li>Synthesis example...</li>
-                            <li>Decomposition example...</li>
-                            <li>Single replacement example...</li>
-                            <li>Double replacement example...</li>
-                            <li>Combustion example...</li>
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
                         </ul>
                         <p class="frame-text">Identifying the reaction type helps us predict the formulas for the products.</p>
                     </section>
@@ -79,9 +75,9 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Practice</h3>
                         <ol class="frame-text text-left bullets">
-                            <li>Lorem ipsum...</li>
-                            <li>More ipsum...</li>
-                            <li>Even more ipsum...</li>
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
                         </ol>
                     </section>
                 </section>                
@@ -90,9 +86,9 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Predicting Combustion Products</h3>
                         <ul class="sub-instructions bullets">
-                            <li>Lorem ipsum...</li>
-                            <li>More ipsum...</li>
-                            <li>Even more ipsum...</li>
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
                         </ul>
                     </section>
                     <section class="col-6 text-center border border-dark bce-table">
@@ -107,9 +103,9 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Identify What's Missing</h3>
                         <ul class="sub-instructions bullets">
-                            <li>In each box shown on the right, enter the missing chemical formula.</li>
-                            <li>Click <em>Check Answers</em> to receive feedback on your formulas.</li>
-                            <li>You do NOT need to balance the reactions!</li>
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
                         </ul>
                     </section>
                     <section class="col-6 text-center border border-dark bce-table">

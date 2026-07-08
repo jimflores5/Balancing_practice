@@ -4,7 +4,7 @@ from markupsafe import Markup # type: ignore
 from copy import deepcopy
 
 from flask.sessions import NullSession # type: ignore
-from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text, incomplete_rxns
+from import_rxns import reactions, all_reactions, types_of_rxns_text, page_4_text, incomplete_rxns, products_text
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -255,6 +255,7 @@ def predict_prods(page):
     template_name = 'predict_prods'
     page = int(page)
     subheadings = ['Sometimes, not all chemical formulas will be given for a reaction.', 'Even with missing compounds, we can still identify reaction types.', 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.', 'Predicting products for combustion reactions.', 'Check Your Understanding']
+    bullet_points = products_text['page_' + str(page)]
     if request.method == 'POST':
         pass
     else:
@@ -278,7 +279,7 @@ def predict_prods(page):
             session['questions'] = deepcopy(questions)
 
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheadings = subheadings, questions = questions)
+            num_pages = num_pages, template = template_name, subheadings = subheadings, questions = questions, bullet_points = bullet_points)
 
 @app.route('/balancing_practice', methods=['POST', 'GET'])
 def balancing_practice():

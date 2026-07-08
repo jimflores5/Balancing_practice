@@ -12,6 +12,7 @@ reaction_data = import_names('reactions.txt')
 types_data = import_names('types_tutorial.txt')
 page_4_text = import_names('how_to_balance.txt')
 incomplete_rxn_data = import_names('incomplete_reactions.txt')
+predict_products_data = import_names('predict_prods.txt')
 
 # Create an empty dictionary to hold the reactions to balance.
 # Each reaction falls into 1 of 5 types.
@@ -46,6 +47,9 @@ incomplete_rxns = {
     'remove_1_product': {}
 }
 
+# Create an empty dictionary to hold the bullet point text for the predicting products tutorial pages.
+products_text = {}
+
 # Fill reactions dictionary and all_reactions list.
 for entry in reaction_data:
     # Check if entry is a header for a reaction type.
@@ -78,3 +82,11 @@ for entry in incomplete_rxn_data:
         temp[-1] = ast.literal_eval(temp[-1])
         # Add the reaction to the incomplete_rxns dictionary.
         incomplete_rxns[heading][int(temp[0])] = temp[1:]
+
+# Fill in products_text dictionary.
+for entry in predict_products_data:
+    if '*' in entry:
+        heading = entry[2:].lower()
+        products_text[heading] = []
+    else:
+        products_text[heading].append(entry)
