@@ -160,6 +160,8 @@ def index():
         session['num_attempted'] = 0
         session['numCorrect'] = 0
         session['used_practice_questions'] = []
+        session['correct_formulas'] = 0
+        session['num_formulas'] = 0
     return render_template('index.html', title = 'Balancing Practice')
 
 @app.route('/rxn_types/<page>', methods=['POST', 'GET'])
@@ -317,17 +319,19 @@ def balancing_practice_2():
                     answer = answer.replace('_', '')
                 answers.append(answer)
             num_correct = check_formulas(question, answers)
-            # Clear answer queue and flash messages then prep for the balancing part of the question.
-            if num_correct == len(answers):
+            if session['first_try']:
+                session['first_try'] = False
+                session['correct_formulas'] += num_correct
+            
+            if num_correct == len(answers): # Prep for the balancing part of the question.
                 answers = []
-                # session.pop('_flashes', None)
+                session['first_try'] = True
                 question = [Markup(render_equation(question[0][0])), question[0][1]]
                 session['question'] = deepcopy(question)
         # Need to add logic to let the user request the correct formula(s).
         else:
             # This block pulls the user's coefficients from the balancing form.
             question = session['question']
-            answers = []
             num_inputs = question[0].count('+') + 2
             row_answers = []
             for entry in range(num_inputs):
@@ -341,6 +345,9 @@ def balancing_practice_2():
             num_correct = check_bce_answers([question[1]], answers)
             if num_correct == 1:
                 session['check_answers_button'] = False
+            if session['first_try']:
+                session['numCorrect'] += num_correct
+                session['first_try'] = False
     else:
         session['first_try'] = True
         session['balance_this'] = False
@@ -361,10 +368,13 @@ def balancing_practice_2():
             session['used_practice_questions'] = []
         session['num_blanks'] = new_rxn[0].count('X')
         session['question'] = deepcopy(question)
+        session['num_formulas'] += session['num_blanks']
+        session['num_attempted'] += 1
     
-    # Need to add logic for the Formula and Balancing progress percentages.
+    formula_percentage = round(session['correct_formulas']/session['num_formulas']*100,1)
+    rxn_percentage = round(session['numCorrect']/session['num_attempted']*100,1)
     return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
-            template = template_name, question = question, answers = answers)
+            template = template_name, question = question, answers = answers, formula_percentage = formula_percentage, rxn_percentage = rxn_percentage)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():
