@@ -153,7 +153,9 @@
                                 <br>
                                 <section class="container-fluid wrapper text-center button-box">
                                     <a class="btn btn-info dynamic-button" href="/balancing_rxns/4" role="button">New Reaction</a>
-                                    <button type="submit" class="btn btn-success dynamic-button">Check Answer</button>
+                                    {% if session['check_answers_button'] %}
+                                        <button type="submit" class="btn btn-success dynamic-button">Check Answer</button>
+                                    {% endif %}
                                 </section>
                                 <br>
                             </form>

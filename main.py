@@ -100,6 +100,45 @@ def remove_cpds(label, reaction):
     reaction[0] = ','.join(reactants) + '->' + ','.join(products)
     return reaction
 
+def check_formulas(rxn, ans):
+    num_right = 0
+    incomplete = rxn[-1].split('->')
+    complete = rxn[0][0].split('->')
+    if len(ans) == 1:
+        reacts = incomplete[0].split(',')
+        prods = incomplete[1].split(',')
+        if 'X' in reacts:
+            index = reacts.index('X')
+            if ans[0] == complete[0].split(',')[index]:
+                num_right += 1
+                flash('Correct formula! Now balance the chemical equation. :-)', 'correct')
+                session['balance_this'] = True
+            else:
+                flash('Incorrect formula. Please try again!', 'error')
+        else:
+            index = prods.index('X')
+            if ans[0] == complete[1].split(',')[index]:
+                num_right += 1
+                flash('Correct formula! Now balance the chemical equation. :-)', 'correct')
+                session['balance_this'] = True
+            else:
+                flash('Incorrect formula. Please try again!', 'error')
+    else:
+        prods = complete[1].split(',')
+        if (ans[0] == prods[0] or ans[0] == prods[1]) and (ans[1] == prods[0] or ans[1] == prods[1]) and ans[0] != ans[1]:
+            num_right += 2
+            flash('All formulas are correct! Now balance the chemical equation. :-)', 'correct')
+            session['balance_this'] = True
+        elif (ans[0] == prods[0] or ans[0] == prods[1]) and (ans[1] != prods[0] and ans[1] != prods[1]):
+            num_right +=1
+            flash('Your first formula is correct, but not your second.', 'error')
+        elif (ans[0] != prods[0] and ans[0] != prods[1]) and (ans[1] == prods[0] or ans[1] == prods[1]):
+            num_right +=1
+            flash('Your second formula is correct, but not your first.', 'error')
+        else:
+            flash('Neither formula is correct. Please try again!', 'error')
+    return num_right
+
 @app.template_filter('subscript')
 def render_equation(raw_rxn):
     # Add whitespace, blanks and '+' symbols to the unbalanced reaction.
@@ -168,6 +207,7 @@ def balancing_rxns(page):
     page = int(page)
     subheadings = ['Conservation of Mass', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
     answers = []
+    session['check_answers_button'] = True
     if request.method == 'POST':
         question = session['rxn_to_balance']
         answers = []
@@ -181,8 +221,9 @@ def balancing_rxns(page):
                 answer = '1'
             row_answers.append(int(answer))
         answers.append(tuple(row_answers))
-        print(answers)
-        check_bce_answers(session['check_these'], answers)
+        num_correct = check_bce_answers(session['check_these'], answers)
+        if num_correct == 1:
+                session['check_answers_button'] = False
     else:
         if page == 4:
             rxn_to_balance = []
@@ -221,6 +262,7 @@ def balancing_practice():
     page_title = 'Balancing Practice, Level 1'
     template_name = 'balancing_practice'
     answers = []
+    session['check_answers_button'] = True
     if request.method == 'POST':
         questions = session['questions']
         for index in range(len(questions)):
@@ -235,6 +277,8 @@ def balancing_practice():
                 row_answers.append(int(answer))
             answers.append(tuple(row_answers))
         num_correct = check_bce_answers(session['check_these'], answers)
+        if num_correct == len(questions):
+            session['check_answers_button'] = False
         if session['first_try']:
             session['first_try'] = False
             session['numCorrect'] += num_correct
@@ -264,9 +308,43 @@ def balancing_practice_2():
     template_name = 'balancing_practice_2'
     answers = []
     if request.method == 'POST':
-        pass
+        question = session['question']
+        if not session['balance_this']:
+            # This block pulls the user's chemical formulas from the form.
+            for index in range(session['num_blanks']):
+                answer = request.form['box'+str(index)].strip()
+                if '_' in answer:
+                    answer = answer.replace('_', '')
+                answers.append(answer)
+            num_correct = check_formulas(question, answers)
+            # Clear answer queue and flash messages then prep for the balancing part of the question.
+            if num_correct == len(answers):
+                answers = []
+                # session.pop('_flashes', None)
+                question = [Markup(render_equation(question[0][0])), question[0][1]]
+                session['question'] = deepcopy(question)
+        # Need to add logic to let the user request the correct formula(s).
+        else:
+            # This block pulls the user's coefficients from the balancing form.
+            question = session['question']
+            answers = []
+            num_inputs = question[0].count('+') + 2
+            row_answers = []
+            for entry in range(num_inputs):
+                answer = request.form['box'+str(entry+1)]
+                if answer == '':
+                    answer = '1'
+                elif not answer.isdigit() and '-' not in answer:
+                    answer = '1'
+                row_answers.append(int(answer))
+            answers.append(tuple(row_answers))
+            num_correct = check_bce_answers([question[1]], answers)
+            if num_correct == 1:
+                session['check_answers_button'] = False
     else:
         session['first_try'] = True
+        session['balance_this'] = False
+        session['check_answers_button'] = True
         still_searching = True
         # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
         while still_searching:
@@ -277,12 +355,14 @@ def balancing_practice_2():
             if new_rxn[0] not in session['used_practice_questions']:
                 session['used_practice_questions'].append(new_rxn[0])
                 still_searching = False
-            question = [original_rxn, Markup(render_equation(new_rxn[0]))]
+            question = [original_rxn, Markup(render_equation(new_rxn[0])), new_rxn[0]]
         # Put a limit on used_practice_questions to avoid an infinite loop!
         if len(session['used_practice_questions']) > 60:
             session['used_practice_questions'] = []
         session['num_blanks'] = new_rxn[0].count('X')
+        session['question'] = deepcopy(question)
     
+    # Need to add logic for the Formula and Balancing progress percentages.
     return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
             template = template_name, question = question, answers = answers)
 

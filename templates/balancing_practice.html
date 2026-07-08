@@ -70,7 +70,9 @@
                 <br>
                 <section class="container-fluid wrapper text-center button-box">
                     <a class="btn btn-info dynamic-button" href="/balancing_practice" role="button">New Reactions</a>
-                    <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                    {% if session['check_answers_button'] %}
+                        <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                    {% endif %}
                     <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
                 </section>
             </form>

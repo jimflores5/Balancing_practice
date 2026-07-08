@@ -130,10 +130,14 @@ sub {
     margin:0px auto;
 }
 
-.correct {color:green}
+.correct {
+    color:green;
+    margin-top: 1%;
+}
 
 .error {
     color:red;
+    margin-top: 1%;
 }
 
 /* .footer {
