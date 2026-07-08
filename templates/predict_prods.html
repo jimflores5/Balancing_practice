@@ -7,54 +7,87 @@
             {% if page == 1 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">What if we're not given the products?</h3>
-                        <ul class="frame-text text-left bullets">
+                        <h3 class="frame-heading">What if we are missing one or more formulas?</h3>
+                        <ul id="bullet_list" class="frame-text text-left bullets">
                             {% for item in bullet_points %}
-                                <li>{{item | safe}}</li>
+                                {% if bullet_points.index(item) == 0 %}
+                                    <li class>{{item | safe}}</li>
+                                {% else %}
+                                    <li class="hidden-item">{{item | safe}}</li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
+                        <button id="reveal-btn" class="btn btn-success dynamic-button" onclick="revealNextItem()">Next Item</button>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Chemical Formulas Practice</h3>
-                        <p class="frame-text">Write the chemical formula for each of the following:</p>
+                        <h3 class="frame-heading">Writing Chemical Formulas Review</h3>
+                        <p class="frame-text">Identify the chemical formula for each of the following:</p>
                         <ol class="frame-text text-left bullets">
-                            <li>Lorem ipsum...</li>
-                            <li>More ipsum...</li>
-                            <li>Even more ipsum...</li>
+                            <li>Carbon dioxide</li>
+                            <li>Magnesium chloride</li>
+                            <li>Aluminum oxide</li>
+                            <li>Iron (III) sulfate</li>
+                            <li>Diboron hexahydride</li>
                         </ol>
                         <p class="d-inline-flex gap-1">
                             <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                Reveal Answers
+                                Show/Hide Answers
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample">
                             <div class="frame-text text-left">
                                 <ol class="bullets">
-                                    <li>Answer ipsum...</li>
-                                    <li>More answer ipsum...</li>
-                                    <li>Even more answer ipsum...</li>
+                                    <li>CO<sub>2</sub></li>
+                                    <li>MgCl<sub>2</sub></li>
+                                    <li>Al<sub>2</sub>O<sub>3</sub></li>
+                                    <li>Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></li>
+                                    <li>B<sub>2</sub>H<sub>6</sub></li>
                                 </ol>
                             </div>
-                        </div>               
+                        </div>            
                     </section>
                 </section>
             {% elif page == 2 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">The reaction characteristics stay the same!</h3>
-                        <ul class="frame-text text-left bullets">
+                        <ul id="bullet_list" class="frame-text text-left bullets">
                             {% for item in bullet_points %}
-                                <li>{{item | safe}}</li>
+                                {% if bullet_points.index(item) == 0 %}
+                                    <li class>{{item | safe}}</li>
+                                {% else %}
+                                    <li class="hidden-item">{{item | safe}}</li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
-                        <p class="frame-text">Identifying the reaction type helps us predict the formulas for the products.</p>
+                        <button id="reveal-btn" class="btn btn-success dynamic-button" onclick="revealNextItem()">Next Item</button>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Identify the reaction type for the processes shown below.</h3>
-                        <p>Equation #1</p>
-                        <hr>
-                        <p>Equation #2</p>
-                        <p>Submit and Refresh buttons here...</p>
+                        <h3 class="frame-heading">Identify the reaction type for each option shown below.</h3>
+                        <ol class="frame-text text-left bullets">
+                            <li>NaBr + F<sub>2</sub> -> ____ + ____</li>
+                            <li>C + H<sub>2</sub>O -> ____</li>
+                            <li>Li<sub>3</sub>PO<sub>4</sub> + MgCl<sub>2</sub> -> ____ + ____</li>
+                            <li>____ -> ____ + ____ + ____</li>
+                            <li>____ + O<sub>2</sub> -> Fe<sub>2</sub>O<sub>3</sub></li>
+                        </ol>
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Show/Hide Answers
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <h3 class="frame-heading">The reaction types are:</h3>
+                            <div class="frame-text text-left">
+                                <ol class="bullets">
+                                    <li>Single replacement</li>
+                                    <li>Synthesis</li>
+                                    <li>Double replacement</li>
+                                    <li>Decomposition</li>
+                                    <li>Combustion AND Synthesis<br> (Sometimes more than one reaction type works!)</li>
+                                </ol>
+                            </div>
+                        </div>
                     </section>
                 </section>
             {% elif page == 3%}
@@ -74,11 +107,26 @@
                     </section>
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Practice</h3>
-                        <ol class="frame-text text-left bullets">
+                        <ol class="frame-text text-left bullets">Predict the missing products for the reactions below:
                             {% for item in bullet_points %}
                                 <li>{{item | safe}}</li>
                             {% endfor %}
                         </ol>
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Show/Hide Answers
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <h3 class="frame-heading">The products are:</h3>
+                            <div class="frame-text text-left">
+                                <ol class="bullets">
+                                    <li>Answer dolor...</li>
+                                    <li>Second dolor...</li>
+                                    <li>Third dolor...</li>
+                                </ol>
+                            </div>
+                        </div>
                     </section>
                 </section>                
             {% elif page == 4 %}

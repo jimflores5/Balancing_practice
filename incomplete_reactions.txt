@@ -1,7 +1,7 @@
 **remove_1_reactant
-1;Na,O2->Na2O;(4,1,2)
-2;Fe,O2->Fe2O3;(4,3,2)
-3;Fe,Cl2->FeCl3;(2, 3, 2)
+1;Fe,O2->Fe2O3;(4,3,2)
+2;Fe,Cl2->FeCl3;(2, 3, 2)
+3;K,H2O->KOH,H2;(2,2,2,1)
 **remove_all_products
 1;Mg,O2->MgO;(2,1,2)
 2;Na,Cl2->NaCl;(2,1,2)
@@ -67,6 +67,7 @@
 62;C3H6,O2->CO2,H2O;(2,9,6,6)
 63;C5H10O,O2->CO2,H2O;(1,7,5,5)
 64;C6H14,O2->CO2,H2O;(2,19,12,14)
+65;Na,O2->Na2O;(4,1,2)
 **remove_1_product
 1;H2O->H2,O2;(2,2,1)
 2;HgO->Hg,O2;(2,2,1)
