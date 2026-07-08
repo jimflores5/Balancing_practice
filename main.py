@@ -180,11 +180,14 @@ def rxn_types(page):
         questions = session['questions']
         for index in range(len(questions)):
             answers.append(request.form['answer_'+str(index+1)])  #Pull user answers into a list.
-        check_type_answers(session['check_these'], answers)
+        num_correct = check_type_answers(session['check_these'], answers)
+        if num_correct == 2:
+            session['check_answers_button'] = False
     else:
         questions = []
         choices = []
         picked = []
+        session['check_answers_button'] = True
         if page == 7:
             while len(questions) < 2:
                 type_choice = random.choice(rxn_types)
@@ -248,16 +251,34 @@ def balancing_rxns(page):
 @app.route('/predict_prods/<page>', methods=['POST', 'GET'])
 def predict_prods(page):
     page_title = 'Predicting Products'
-    num_pages = 4
+    num_pages = 5
     template_name = 'predict_prods'
     page = int(page)
-    subheadings = ['Sometimes, not all chemical formulas will be given for a reaction.', 'Even with missing compounds, we can still identify reaction types.', 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.', 'Predicting products for combustion reactions.']
+    subheadings = ['Sometimes, not all chemical formulas will be given for a reaction.', 'Even with missing compounds, we can still identify reaction types.', 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.', 'Predicting products for combustion reactions.', 'Check Your Understanding']
     if request.method == 'POST':
         pass
     else:
-        pass
+        session['check_answers_button'] = True
+        questions = []
+        if page == 5:
+            # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
+            while len(questions) < 3:
+                options = random.choice(list(incomplete_rxns.keys()))
+                rxn_number = random.choice(list(incomplete_rxns[options].keys()))
+                original_rxn = incomplete_rxns[options][rxn_number]
+                new_rxn = remove_cpds(options, deepcopy(incomplete_rxns[options][rxn_number]))
+                if new_rxn[0] not in session['used_practice_questions']:
+                    session['used_practice_questions'].append(new_rxn[0])
+                question = [original_rxn, Markup(render_equation(new_rxn[0])), new_rxn[0]]
+                questions.append(question)
+            # Put a limit on used_practice_questions to avoid an infinite loop!
+            if len(session['used_practice_questions']) > 60:
+                session['used_practice_questions'] = []
+            session['num_blanks'] = new_rxn[0].count('X')
+            session['questions'] = deepcopy(questions)
+
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheadings = subheadings)
+            num_pages = num_pages, template = template_name, subheadings = subheadings, questions = questions)
 
 @app.route('/balancing_practice', methods=['POST', 'GET'])
 def balancing_practice():
@@ -391,8 +412,11 @@ def types_practice():
             session['first_try'] = False
             session['numCorrect'] += num_correct
             session['first_score'] = session['numCorrect']
+        if num_correct == 5:
+            session['check_answers_button'] = False
     else:
         session['first_try'] = True
+        session['check_answers_button'] = True
         questions = []
         choices = []
         picked = []

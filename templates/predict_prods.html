@@ -85,7 +85,7 @@
                         </ol>
                     </section>
                 </section>                
-            {% else %}
+            {% elif page == 4 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Predicting Combustion Products</h3>
@@ -100,6 +100,32 @@
                         {% with messages = get_flashed_messages(with_categories=True) %}
                             <p>ID products practice question(s)...</p>
                         {% endwith %}
+                    </section>
+                </section>
+            {% else %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Identify What's Missing</h3>
+                        <ul class="sub-instructions bullets">
+                            <li>In each box shown on the right, enter the missing chemical formula.</li>
+                            <li>Click <em>Check Answers</em> to receive feedback on your formulas.</li>
+                            <li>You do NOT need to balance the reactions!</li>
+                        </ul>
+                    </section>
+                    <section class="col-6 text-center border border-dark bce-table">
+                        <h3 class="frame-heading">Practice</h3>
+                        {% with messages = get_flashed_messages(with_categories=True) %}
+                            {% for question in questions %}
+                                {{question[1]}}
+                                <hr>
+                            {% endfor %}
+                        {% endwith %}
+                        <section class="container-fluid wrapper text-center button-box">
+                            <a class="btn btn-info dynamic-button" href="/predict_prods/5" role="button">New Reactions</a>
+                            {% if session['check_answers_button'] %}
+                                <button type="submit" class="btn btn-success dynamic-button">Check Answer</button>
+                            {% endif %}
+                        </section>
                     </section>
                 </section>
             {% endif %}

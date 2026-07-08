@@ -84,7 +84,9 @@
                             </section>
                         {% endfor %}
                         <section class="button-box">
-                            <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                            {% if session['check_answers_button'] %}
+                                <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
+                            {% endif %}
                             <a class="btn btn-info dynamic-button" href="/rxn_types/{{page}}" role="button">New Reactions</a>
                         </section>
                         <br>
