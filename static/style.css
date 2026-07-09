@@ -105,6 +105,12 @@ sub {
     color: black;
 }
 
+.mcq-items {
+    font-size: 1.4vw;
+    text-align: left;
+    margin-left: 5%;
+}
+
 .left-side-label {
     display: inline-block;
     text-align: right;

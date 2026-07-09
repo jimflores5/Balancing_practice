@@ -7,17 +7,64 @@
             {% if page == 1 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Rearranging Atoms</h3>
-                        <ul class="frame-text text-left bullets">
-                            <li>Matter can be neither created nor destroyed in a normal chemical process.</li>
-                            <li>Atoms are only <em>rearranged</em> during a reaction.</li>
-                        </ul>
-                        <video class="border border-dark intro-vid" width="100%" height="auto" controls>
-                            Video goes here!
-                        </video>
+                        <h3 class="frame-heading">Consider the following reactions:</h3>
+                        <ol class="frame-text text-left bullets">
+                            <li>Two clear and colorless solutions mix to produce a solid product.</li>
+                            <li>Steel wool (which is mostly iron) burns.</li>
+                        </ol>
+                        <p class="frame-text text-center">Play the video below to see the reactions in action!</p>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='conservation_1.mp4')}}" width="100%" height="auto" controls></video>
+                        <div class="container-fluid text-center">
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
                     </section>
                     <section class="col-6 text-center border border-dark">
-                        <h3 class="frame-heading">Conservation Questions</h3>
+                        <h3 class="frame-heading">Now Predict!</h3>
+                        <ol class="frame-text text-left" type="a" style="padding-left: 1%;">For reaction #1, the mass of the system _______.
+                            <li class="mcq-items" style="color:blue">increases</li>
+                            <li class="mcq-items" style="color:green">decreases</li>
+                            <li class="mcq-items" style="color:purple">stays the same</li>
+                        </ol>
+                        <ol class="frame-text text-left" type="a" style="padding-left: 1%;">For reaction #2, the mass of the system _______.
+                            <li class="mcq-items" style="color:blue">increases</li>
+                            <li class="mcq-items" style="color:green">decreases</li>
+                            <li class="mcq-items" style="color:purple">stays the same</li>
+                        </ol>
+                        <hr>
+                        <p class="frame-text text-center">
+                            Watch the video on the next page to check your predictions.
+                        </p>         
+                    </section>
+                </section>
+            {% elif page == 2 %}
+                <section class="row justify-content-center">
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Conservation Of Mass States:</h3>
+                        <ul class="frame-text text-left bullets">
+                            <li>Matter can be neither created nor destroyed in a normal chemical process.</li>
+                            <li>Atoms are <em>rearranged</em> during a reaction, but total mass stays constant.</li>
+                        </ul>
+                        <hr>
+                        <p class="frame-text">Let's take mass measurements as we run the same two reactions:</p>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='conservation_2.mp4')}}" width="100%" height="auto" controls></video>
+                        <div class="container-fluid text-center">
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
+                    </section>
+                    <section class="col-6 text-center border border-dark">
+                        <h3 class="frame-heading">Check Your Understanding</h3>
                         <ol class="frame-text text-left bullets">
                             <li>For the reaction 4Fe + 3O<sub>2</sub> -> 2Fe<sub>2</sub>O<sub>3</sub>, 1.65 g of iron reacts to form 2.36 g of Fe<sub>2</sub>O<sub>3</sub>. <strong>What mass of O<sub>2</sub> reacted?</strong></li>
                             <li>A student dissolves 1.0 g of table salt (NaCl) into 50.0 g of water (H<sub>2</sub>O). <strong>The mass of the mixture after dissolving is ___.</strong>
@@ -43,7 +90,7 @@
                         </div>               
                     </section>
                 </section>
-            {% elif page == 2 %}
+            {% elif page == 3 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Key Terms for Chemical Equations</h3>
@@ -67,7 +114,7 @@
                         <p class="sub-instructions" style="text-align: center;">Watch the video for more details!</p>
                     </section>
                 </section>
-            {% elif page == 3 %}
+            {% elif page == 4 %}
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">How To Balance</h3>
