@@ -94,7 +94,7 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Predicting Ionic Products</h3>
-                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='rxn_vocab.mp4')}}" width="100%" height="auto" controls></video>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='predict_ionic_prods.mp4')}}" width="100%" height="auto" controls></video>
                         <div>
                             <label for="speed-select">Speed: </label>
                             <select id="speed-select" class="vid-controls">
@@ -133,11 +133,16 @@
                 <section class="row justify-content-center">
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Predicting Combustion Products</h3>
-                        <ul class="sub-instructions bullets">
-                            {% for item in bullet_points %}
-                                <li>{{item | safe}}</li>
-                            {% endfor %}
-                        </ul>
+                        <video id="lesson-video" class="border border-dark intro-vid" src="{{url_for('static', filename='predict_conb_prods.mp4')}}" width="100%" height="auto" controls></video>
+                        <div>
+                            <label for="speed-select">Speed: </label>
+                            <select id="speed-select" class="vid-controls">
+                                <option value="0.5">0.5x</option>
+                                <option value="1.0" selected>1.0x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2.0">2.0x</option>
+                            </select>
+                        </div>
                     </section>
                     <section class="col-6 text-center border border-dark bce-table">
                         <h3 class="frame-heading">Practice</h3>
