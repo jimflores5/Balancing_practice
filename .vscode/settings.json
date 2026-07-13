@@ -7,7 +7,9 @@
         "coefs",
         "cpds",
         "decomp",
+        "Diboron",
         "emsp",
+        "hexahydride",
         "rxns"
     ],
     "python.languageServer": "Pylance",

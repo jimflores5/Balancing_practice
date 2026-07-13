@@ -22,7 +22,7 @@
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Writing Chemical Formulas Review</h3>
                         <p class="frame-text">Identify the chemical formula for each of the following:</p>
-                        <ol class="frame-text text-left bullets">
+                        <ol class="frame-text text-left bullets" type="a">
                             <li>Carbon dioxide</li>
                             <li>Magnesium chloride</li>
                             <li>Aluminum oxide</li>
@@ -36,7 +36,7 @@
                         </p>
                         <div class="collapse" id="collapseExample">
                             <div class="frame-text text-left">
-                                <ol class="bullets">
+                                <ol class="bullets" type="a">
                                     <li>CO<sub>2</sub></li>
                                     <li>MgCl<sub>2</sub></li>
                                     <li>Al<sub>2</sub>O<sub>3</sub></li>
@@ -64,7 +64,7 @@
                     </section>
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Identify the reaction type for each option shown below.</h3>
-                        <ol class="frame-text text-left bullets">
+                        <ol class="frame-text text-left bullets" type="a">
                             <li>NaBr + F<sub>2</sub> -> ____ + ____</li>
                             <li>C + H<sub>2</sub>O -> ____</li>
                             <li>Li<sub>3</sub>PO<sub>4</sub> + MgCl<sub>2</sub> -> ____ + ____</li>
@@ -79,7 +79,7 @@
                         <div class="collapse" id="collapseExample">
                             <h3 class="frame-heading">The reaction types are:</h3>
                             <div class="frame-text text-left">
-                                <ol class="bullets">
+                                <ol class="bullets" type="a">
                                     <li>Single replacement</li>
                                     <li>Synthesis</li>
                                     <li>Double replacement</li>
@@ -107,7 +107,7 @@
                     </section>
                     <section class="col-6 text-center border border-dark">
                         <h3 class="frame-heading">Practice</h3>
-                        <ol class="frame-text text-left bullets">Predict the missing products for the reactions below:
+                        <ol class="frame-text text-left bullets" type="a">Predict the missing products for the reactions below:
                             {% for item in bullet_points %}
                                 <li>{{item | safe}}</li>
                             {% endfor %}
@@ -118,12 +118,19 @@
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample">
-                            <h3 class="frame-heading">The products are:</h3>
+                            <div class="col-4 frame-text text-left">
+                                <ol class="bullets" type="a">The products are:
+                                    <li>Na<sub>2</sub>O + Al</li>
+                                    <li>Mg<sub>3</sub>N<sub>2</sub></li>
+                                    <li>KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></li>
+                                </ol>
+                            </div>
+                            <hr>
                             <div class="frame-text text-left">
-                                <ol class="bullets">
-                                    <li>Answer dolor...</li>
-                                    <li>Second dolor...</li>
-                                    <li>Third dolor...</li>
+                                <ol class="bullets" type="a">The balanced reactions are:
+                                    <li>Al<sub>2</sub>O<sub>3</sub> + 6Na -> 3Na<sub>2</sub>O + 2Al</li>
+                                    <li>3Mg + N<sub>2</sub> -> Mg<sub>3</sub>N<sub>2</sub></li>
+                                    <li>2Fe(NO<sub>3</sub>)<sub>3</sub> + 3K<sub>2</sub>CO<sub>3</sub> -> 6KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></li>
                                 </ol>
                             </div>
                         </div>
