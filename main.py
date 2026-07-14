@@ -139,6 +139,23 @@ def check_formulas(rxn, ans):
             flash('Neither formula is correct. Please try again!', 'error')
     return num_right
 
+def find_rxn_type(rxn_to_identify, rxns):
+    if 'HOH' in rxn_to_identify:
+        rxn_to_identify = rxn_to_identify.replace('HOH', 'H2O')
+    rxn_types = list(rxns.keys())
+    for rxn_type in rxn_types:
+        for rxn in rxns[rxn_type].values():
+            if rxn[0] == rxn_to_identify:
+                type_found = rxn_type.replace('_',' ') 
+
+    # Check for reactions that fit both the synthesis and combustion categories.
+    if type_found == 'synthesis' or type_found == 'combustion':
+        rxn_split = rxn_to_identify.split('->')
+        prod_split = rxn_split[1].split(',')
+        if ',O2' in rxn_split[0] and len(prod_split) == 1:
+            type_found = 'synthesis AND combustion'
+    return type_found
+
 @app.template_filter('subscript')
 def render_equation(raw_rxn):
     # Add whitespace, blanks and '+' symbols to the unbalanced reaction.
@@ -248,7 +265,7 @@ def balancing_rxns(page):
     return render_template('balancing_rxns.html',title='How to Balance a Reaction', page = page, page_title = page_title, 
             num_pages = num_pages, template = template_name, subheadings = subheadings, answers = answers, page_4_text = page_4_text)
 
-@app.route('/predict_prods/<page>', methods=['POST', 'GET'])
+@app.route('/predict_prods/<page>', methods=['GET'])
 def predict_prods(page):
     page_title = 'Predicting Products'
     num_pages = 5
@@ -256,30 +273,31 @@ def predict_prods(page):
     page = int(page)
     subheadings = ['Sometimes, not all chemical formulas will be given for a reaction.', 'Even with missing compounds, we can still identify reaction types.', 'Predicting products for Synthesis, Single Replacement, and Double Replacement reactions.', 'Predicting products for combustion reactions.', 'Check Your Understanding']
     bullet_points = products_text['page_' + str(page)]
-    if request.method == 'POST':
-        pass
-    else:
-        session['check_answers_button'] = True
-        questions = []
-        if page == 5:
-            # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
-            while len(questions) < 3:
-                options = random.choice(list(incomplete_rxns.keys()))
-                rxn_number = random.choice(list(incomplete_rxns[options].keys()))
-                original_rxn = incomplete_rxns[options][rxn_number]
-                new_rxn = remove_cpds(options, deepcopy(incomplete_rxns[options][rxn_number]))
-                if new_rxn[0] not in session['used_practice_questions']:
-                    session['used_practice_questions'].append(new_rxn[0])
+    session['check_answers_button'] = True
+    questions = []
+    answers = []
+
+    if page == 5:
+        # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
+        while len(questions) < 1:
+            options = random.choice(list(incomplete_rxns.keys()))
+            rxn_number = random.choice(list(incomplete_rxns[options].keys()))
+            original_rxn = incomplete_rxns[options][rxn_number]
+            new_rxn = remove_cpds(options, deepcopy(incomplete_rxns[options][rxn_number]))
+            rxn_type = find_rxn_type(original_rxn[0], reactions)
+            if new_rxn[0] not in session['used_practice_questions']:
+                session['used_practice_questions'].append(new_rxn[0])
                 question = [original_rxn, Markup(render_equation(new_rxn[0])), new_rxn[0]]
                 questions.append(question)
-            # Put a limit on used_practice_questions to avoid an infinite loop!
-            if len(session['used_practice_questions']) > 60:
-                session['used_practice_questions'] = []
-            session['num_blanks'] = new_rxn[0].count('X')
-            session['questions'] = deepcopy(questions)
+                answers = [Markup(render_equation(original_rxn[0])), rxn_type]
+        # Put a limit on used_practice_questions to avoid an infinite loop!
+        if len(session['used_practice_questions']) > 60:
+            session['used_practice_questions'] = []
+        session['num_blanks'] = new_rxn[0].count('X')
+        session['questions'] = deepcopy(questions)
 
     return render_template('predict_prods.html',title='Predicting Products', page = page, page_title = page_title, 
-            num_pages = num_pages, template = template_name, subheadings = subheadings, questions = questions, bullet_points = bullet_points)
+            num_pages = num_pages, template = template_name, subheadings = subheadings, questions = questions, bullet_points = bullet_points, answers = answers)
 
 @app.route('/balancing_practice', methods=['POST', 'GET'])
 def balancing_practice():

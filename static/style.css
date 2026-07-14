@@ -237,3 +237,9 @@ sub {
 .hidden-item {
     display: none;
 }
+
+.incomplete-rxn {
+    font-size: 1.4vw;
+    text-align: center;
+    color: blue;
+}
