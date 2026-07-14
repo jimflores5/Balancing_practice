@@ -118,19 +118,26 @@
                             </button>
                         </p>
                         <div class="collapse" id="collapseExample">
-                            <div class="col-4 frame-text text-left">
-                                <ol class="bullets" type="a">The products are:
-                                    <li>Na<sub>2</sub>O + Al</li>
-                                    <li>Mg<sub>3</sub>N<sub>2</sub></li>
-                                    <li>KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></li>
-                                </ol>
-                            </div>
-                            <hr>
                             <div class="frame-text text-left">
-                                <ol class="bullets" type="a">The balanced reactions are:
-                                    <li>Al<sub>2</sub>O<sub>3</sub> + 6Na -> 3Na<sub>2</sub>O + 2Al</li>
-                                    <li>3Mg + N<sub>2</sub> -> Mg<sub>3</sub>N<sub>2</sub></li>
-                                    <li>2Fe(NO<sub>3</sub>)<sub>3</sub> + 3K<sub>2</sub>CO<sub>3</sub> -> 6KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></li>
+                                <ol class="bullets" type="a">The products (and balanced reactions) are:
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">Na<sub>2</sub>O + Al</div>
+                                            <div class="col-8">Al<sub>2</sub>O<sub>3</sub> + 6Na -> 3Na<sub>2</sub>O + 2Al</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">Mg<sub>3</sub>N<sub>2</sub></div>
+                                            <div class="col-8">3Mg + N<sub>2</sub> -> Mg<sub>3</sub>N<sub>2</sub></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></div>
+                                            <div class="col-8">2Fe(NO<sub>3</sub>)<sub>3</sub> + 3K<sub>2</sub>CO<sub>3</sub> -> 6KNO<sub>3</sub> + Fe<sub>2</sub>(CO<sub>3</sub>)<sub>3</sub></div>
+                                        </div>
+                                    </li>
                                 </ol>
                             </div>
                         </div>
@@ -153,9 +160,46 @@
                     </section>
                     <section class="col-6 text-center border border-dark bce-table">
                         <h3 class="frame-heading">Practice</h3>
-                        {% with messages = get_flashed_messages(with_categories=True) %}
-                            <p>ID products practice question(s)...</p>
-                        {% endwith %}
+                        <ol class="frame-text text-left bullets" type="a">Predict the missing products for the reactions below:
+                            {% for item in bullet_points %}
+                                <li>{{item | safe}}</li>
+                            {% endfor %}
+                        </ol>
+                        <p class="d-inline-flex gap-1">
+                            <button class="btn btn-info reveal-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Show/Hide Answers
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="frame-text text-left">
+                                <ol class="bullets" type="a">The products (and balanced reactions) are:
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">BaO</div>
+                                            <div class="col-8">2Ba + O<sub>2</sub> -> 2BaO</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">CO<sub>2</sub> + H<sub>2</sub>O</div>
+                                            <div class="col-8">2C<sub>4</sub>H<sub>10</sub> + 13O<sub>2</sub> -> 8CO<sub>2</sub> + 10H<sub>2</sub>O</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">CO<sub>2</sub> + SO<sub>2</sub></div>
+                                            <div class="col-8">CS<sub>2</sub> + 3O<sub>2</sub> -> CO<sub>2</sub> + 2SO<sub>2</sub></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4">CO<sub>2</sub> + H<sub>2</sub>O + NO<sub>2</sub></div>
+                                            <div class="col-8">4C<sub>2</sub>H<sub>5</sub>NO<sub>2</sub> + 13O<sub>2</sub> -> 8CO<sub>2</sub> + 10H<sub>2</sub>O + 4NO<sub>2</sub></div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>                         
+                        </div>
                     </section>
                 </section>
             {% else %}

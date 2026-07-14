@@ -16,9 +16,10 @@ Al<sub>2</sub>O<sub>3</sub> + Na -> ___________ + ___________
 Mg + N<sub>2</sub> -> ___________
 Fe(NO<sub>3</sub>)<sub>3</sub> + K<sub>2</sub>CO<sub>3</sub> -> ___________ + ___________
 **Page_4
-Lorem ipsum...
-More ipsum...
-Even more ipsum...
+Ba + O<sub>2</sub> -> ___________
+C<sub>4</sub>H<sub>10</sub> + O<sub>2</sub> -> ___________ + ___________
+CS<sub>2</sub> + O<sub>2</sub> -> ___________ + ___________
+C<sub>2</sub>H<sub>5</sub>NO<sub>2</sub> + O<sub>2</sub> -> ___________ + ___________ + ___________
 **Page_5
 In each box shown on the right, enter the missing chemical formula.
 Click <em>Check Answers</em> to receive feedback on your formulas.
