@@ -252,10 +252,10 @@
                         {% endfor %}
                         <section class="container-fluid wrapper text-center button-box">
                             <p class="d-inline-flex gap-1">
-                                <a class="btn btn-info dynamic-button" href="/predict_prods/5" role="button">New Reaction</a>
                                 <button class="btn btn-success dynamic-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     Show Answers
                                 </button>
+                                <a class="btn btn-info dynamic-button" href="/predict_prods/5" role="button">New Reaction</a>
                             </p>
                             <div class="collapse" id="collapseExample">
                                 <p class="frame-text" style="color:blue">Unbalanced reaction: <strong>{{answers[0].replace('__', '_')}}</strong></p>

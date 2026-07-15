@@ -227,7 +227,7 @@ def balancing_rxns(page):
     num_pages = 5
     template_name = 'balancing_rxns'
     page = int(page)
-    subheadings = ['How Does Mass Change During a Chemical Reaction?', 'Checking for Conservation', 'Reaction Vocabulary', 'Steps to balance a reaction.', 'First Practice!']
+    subheadings = ['How Does Mass Change During a Chemical Reaction?', 'Checking for Conservation', 'Reaction Vocabulary', 'Steps to Balance a Reaction', 'Check Your Understanding']
     answers = []
     session['check_answers_button'] = True
     if request.method == 'POST':
@@ -247,7 +247,7 @@ def balancing_rxns(page):
         if num_correct == 1:
                 session['check_answers_button'] = False
     else:
-        if page == 4:
+        if page == 5:
             rxn_to_balance = []
             coefficients = []
             # Put a limit on used_practice_questions to avoid an infinite loop!
