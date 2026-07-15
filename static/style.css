@@ -146,6 +146,12 @@ sub {
     margin-top: 1%;
 }
 
+.stuck-text {
+    color:brown;
+    font-size: 1.4vw;
+    text-align: center;
+}
+
 /* .footer {
     position: absolute;
     bottom: 0;

@@ -115,6 +115,7 @@ def check_formulas(rxn, ans):
                 session['balance_this'] = True
             else:
                 flash('Incorrect formula. Please try again!', 'error')
+                session['formulas'] = [re.sub(r'(\d+)', r'<sub>\1</sub>', complete[0].split(',')[index])]
         else:
             index = prods.index('X')
             if ans[0] == complete[1].split(',')[index]:
@@ -123,8 +124,10 @@ def check_formulas(rxn, ans):
                 session['balance_this'] = True
             else:
                 flash('Incorrect formula. Please try again!', 'error')
+                session['formulas'] = [re.sub(r'(\d+)', r'<sub>\1</sub>', complete[1].split(',')[index])]
     else:
         prods = complete[1].split(',')
+        session['formulas'] = [re.sub(r'(\d+)', r'<sub>\1</sub>', prods[0]), re.sub(r'(\d+)', r'<sub>\1</sub>', prods[1])]
         if (ans[0] == prods[0] or ans[0] == prods[1]) and (ans[1] == prods[0] or ans[1] == prods[1]) and ans[0] != ans[1]:
             num_right += 2
             flash('All formulas are correct! Now balance the chemical equation. :-)', 'correct')

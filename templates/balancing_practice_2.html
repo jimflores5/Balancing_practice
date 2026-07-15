@@ -9,7 +9,6 @@
                     <ul class="sub-instructions">
                         <li>Type a coefficient in front of each chemical formula.</li>
                         <li>If a coefficient equals 1, you may fill in that value OR leave the space empty.</li>
-                        <li>Use scrap paper to make a counting chart and work out the details!</li>
                     </ul>
                 {% else %}
                     <p class="instructions">For the reaction shown below:</p>
@@ -114,7 +113,22 @@
                             <section class="col-2">
                                 {% if messages %}
                                     {% set message = messages[0] %}
-                                    <p class='{{message[0]}}' style="font-size: 1.3vw">{{message[1]}}</p>
+                                    <p class='{{message[0]}}'>{{message[1]}}</p>
+                                    {% if message[0] == 'error' %}
+                                    <hr>
+                                        <div class="dropdown ">
+                                            <p class="dropdown-toggle stuck-text" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Stuck? Click here.
+                                            </p>
+                                            <p class="dropdown-menu stuck-text border border-0">
+                                                {% if session['formulas'][1] %}
+                                                    <span class="dropdown-item">{{session['formulas'][0] | safe}} + {{session['formulas'][1] | safe}}</span>
+                                                {% else %}
+                                                    <span class="dropdown-item">{{session['formulas'][0] | safe}}</span>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             </section>
                         {% endif %}
