@@ -17,7 +17,7 @@
                 <table class="table table-hover table-bordered quiz-table">
                     <thead>
                         <tr style="text-align: center;">
-                            <th scope="col" style="width: 2%;">#</th>
+                            <th scope="col" style="width: 2%;"></th>
                             <th scope="col" style="width: 35%;">Unbalanced Reaction</th>
                             <th scope="col" style="width: 63%;">Reaction Types</th>
                         </tr>
@@ -53,6 +53,7 @@
                             <th></th>
                             <td class="text-center">
                                 <a class="btn btn-info dynamic-button" href="/types_practice" role="button">New Reactions</a>
+                                <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a> 
                             </td>
                             <td class="text-center">
                                 {% if session['check_answers_button'] %}
@@ -67,7 +68,13 @@
         {% endwith %}
     </section>
     <section class="container wrapper text-center">
-        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
-        <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>             
+        <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>            
+    </section>
+    <hr>
+    <section class="container-fluid wrapper">
+        <p class="error frame-text text-center">
+            <u>Caution</u>: Avoid using the Back button in your browser menu!<br>
+            <span class="note frame-text">Use the <strong>New Reactions, Main Menu,</strong> and <strong>Check Answers</strong> buttons to navigate instead.</span>
+        </p>
     </section>
 {% endblock %} 

@@ -69,15 +69,21 @@
                 </table>
                 <br>
                 <section class="container-fluid wrapper text-center button-box">
-                    <a class="btn btn-info dynamic-button" href="/balancing_practice" role="button">New Reactions</a>
                     {% if session['check_answers_button'] %}
                         <button type="submit" class="btn btn-success dynamic-button">Check Answers</button>
                     {% endif %}
+                    <a class="btn btn-info dynamic-button" href="/balancing_practice" role="button">New Reactions</a>
                     <a class="btn btn-primary dynamic-button" href="/" role="button">Main Menu</a>
                 </section>
             </form>
         {% endwith %}
     </section>
-    <hr>
     <p class="record">Progress = {{session['numCorrect']}}/{{session['num_attempted']}} ({{percentage}}%)</p>
+    <hr>
+    <section class="container-fluid wrapper">
+        <p class="error frame-text text-center">
+            <u>Caution</u>: Avoid using the Back button in your browser menu!<br>
+            <span class="note frame-text">Use the <strong>Check Answers, New Reactions,</strong> and <strong>Main Menu</strong> buttons to navigate instead.</span>
+        </p>
+    </section>
 {% endblock %} 
