@@ -105,16 +105,16 @@
                                 {% endif %}
                             </div>
                             <section class="col-2">
-                                <p class="frame-text">Formula: <span id="dynamicFormula_0" for="box0" style="color:purple"></span></p>
+                                <p class="frame-text">Formula: <span id="dynamicFormula_0" for="box0" style="color:purple">{% if answers %}{{formula_display[0] | safe}}{% endif %}</span></p>
                                 {% if session['num_blanks'] == 2 %}
-                                    <p class="frame-text">Formula: <span id="dynamicFormula_1" for="box1" style="text-align: left; color:purple"></span></p>
+                                    <p class="frame-text">Formula: <span id="dynamicFormula_1" for="box1" style="text-align: left; color:purple">{% if answers %}{{formula_display[1] | safe}}{% endif %}</span></p>
                                 {% endif %}
                             </section>
                             <section class="col-2">
                                 {% if messages %}
                                     {% set message = messages[0] %}
                                     <p class='{{message[0]}}'>{{message[1]}}</p>
-                                    {% if message[0] == 'error' %}
+                                    {% if message[0] == 'error' and session['num_tries'] >= 2 %}
                                     <hr>
                                         <div class="dropdown ">
                                             <p class="dropdown-toggle stuck-text" data-bs-toggle="dropdown" aria-expanded="false">

@@ -352,15 +352,18 @@ def balancing_practice_2():
     page_title = 'Balancing Practice, Level 2'
     template_name = 'balancing_practice_2'
     answers = []
+    formula_display = []
     if request.method == 'POST':
         question = session['question']
         if not session['balance_this']:
+            session['num_tries'] += 1
             # This block pulls the user's chemical formulas from the form.
             for index in range(session['num_blanks']):
                 answer = request.form['box'+str(index)].strip()
                 if '_' in answer:
                     answer = answer.replace('_', '')
                 answers.append(answer)
+                formula_display.append(re.sub(r'(\d+)', r'<sub>\1</sub>', answer))
             num_correct = check_formulas(question, answers)
             if session['first_try']:
                 session['first_try'] = False
@@ -395,6 +398,7 @@ def balancing_practice_2():
         session['first_try'] = True
         session['balance_this'] = False
         session['check_answers_button'] = True
+        session['num_tries'] = 0
         still_searching = True
         # question contains the original, unmodified choice plus the reaction with 1 or more compounds removed.
         while still_searching:
@@ -417,7 +421,8 @@ def balancing_practice_2():
     formula_percentage = round(session['correct_formulas']/session['num_formulas']*100,1)
     rxn_percentage = round(session['numCorrect']/session['num_attempted']*100,1)
     return render_template('balancing_practice_2.html',title='Balancing Practice', page_title = page_title, 
-            template = template_name, question = question, answers = answers, formula_percentage = formula_percentage, rxn_percentage = rxn_percentage)
+            template = template_name, question = question, answers = answers, formula_percentage = formula_percentage, 
+            rxn_percentage = rxn_percentage, formula_display = formula_display)
 
 @app.route('/types_practice', methods=['POST', 'GET'])
 def types_practice():
