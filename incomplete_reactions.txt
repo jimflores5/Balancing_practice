@@ -2,6 +2,8 @@
 1;Fe,O2->Fe2O3;(4,3,2)
 2;Fe,Cl2->FeCl3;(2, 3, 2)
 3;K,H2O->KOH,H2;(2,2,2,1)
+4;Ca,H2O->Ca(OH)2,H2;(1,2,1,1)
+5;N2,H2->NH3;(1, 3, 2)
 **remove_all_products
 1;Mg,O2->MgO;(2,1,2)
 2;Na,Cl2->NaCl;(2,1,2)
@@ -39,7 +41,7 @@
 34;Al,HCl->AlCl3,H2;(2,6,2,3)
 35;Cl2,NaBr->NaCl,Br2;(1,2,2,1)
 36;Mg,Fe2O3->MgO,Fe;(3,1,3,2)
-37;Zn,CuSO4->ZnSO4,Cu;(1,1,1,1)
+37;Zn,Cu2SO4->ZnSO4,Cu;(1,1,1,2)
 38;Ca,HOH->Ca(OH)2,H2;(1,2,1,1)
 39;Br2,KI->KBr,I2;(1,2,2,1)
 40;K,HOH->KOH,H2;(2,2,2,1)
